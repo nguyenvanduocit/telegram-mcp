@@ -126,6 +126,8 @@ func handleListChats(_ context.Context, _ mcp.CallToolRequest, input listChatsIn
 	chats := modified.GetChats()
 	users := modified.GetUsers()
 
+	services.StorePeers(tgCtx, chats, users)
+
 	// Build lookup maps
 	chatMap := make(map[int64]tg.ChatClass)
 	for _, c := range chats {
@@ -302,6 +304,8 @@ func handleSearchChats(_ context.Context, _ mcp.CallToolRequest, input searchCha
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("search failed: %v", err)), nil
 	}
+
+	services.StorePeers(tgCtx, found.Chats, found.Users)
 
 	var b strings.Builder
 	fmt.Fprintf(&b, "Search results for %q\n", input.Query)

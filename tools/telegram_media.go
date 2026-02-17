@@ -95,7 +95,7 @@ func getMessageByID(ctx context.Context, peer tg.InputPeerClass, msgID int) (*tg
 		return nil, fmt.Errorf("get message: %w", err)
 	}
 
-	msgs := extractMessages(result)
+	msgs := extractMessages(ctx, result)
 	if len(msgs) == 0 {
 		return nil, fmt.Errorf("message %d not found", msgID)
 	}

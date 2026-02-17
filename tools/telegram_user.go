@@ -131,6 +131,8 @@ func handleResolveUsername(_ context.Context, _ mcp.CallToolRequest, input resol
 		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve @%s: %v", username, err)), nil
 	}
 
+	services.StorePeers(tgCtx, resolved.Chats, resolved.Users)
+
 	var b strings.Builder
 	fmt.Fprintf(&b, "Resolved @%s\n", username)
 
@@ -225,6 +227,8 @@ func handleSearchContacts(_ context.Context, _ mcp.CallToolRequest, input search
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("search failed: %v", err)), nil
 	}
+
+	services.StorePeers(tgCtx, found.Chats, found.Users)
 
 	var b strings.Builder
 	fmt.Fprintf(&b, "Search results for %q\n", input.Query)

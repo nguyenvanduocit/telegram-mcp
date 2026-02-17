@@ -53,11 +53,12 @@ func formatMessages(msgs []tg.MessageClass) string {
 	return sb.String()
 }
 
-func extractMessages(result tg.MessagesMessagesClass) []tg.MessageClass {
+func extractMessages(ctx context.Context, result tg.MessagesMessagesClass) []tg.MessageClass {
 	modified, ok := result.AsModified()
 	if !ok {
 		return nil
 	}
+	services.StorePeers(ctx, modified.GetChats(), modified.GetUsers())
 	return modified.GetMessages()
 }
 
@@ -274,7 +275,7 @@ func handleGetHistory(_ context.Context, _ mcp.CallToolRequest, input getHistory
 		return mcp.NewToolResultError(fmt.Sprintf("failed to get history: %v", err)), nil
 	}
 
-	msgs := extractMessages(result)
+	msgs := extractMessages(tgCtx, result)
 	return mcp.NewToolResultText(formatMessages(msgs)), nil
 }
 
@@ -301,7 +302,7 @@ func handleSearchMessages(_ context.Context, _ mcp.CallToolRequest, input search
 		return mcp.NewToolResultError(fmt.Sprintf("failed to search messages: %v", err)), nil
 	}
 
-	msgs := extractMessages(result)
+	msgs := extractMessages(tgCtx, result)
 	return mcp.NewToolResultText(formatMessages(msgs)), nil
 }
 

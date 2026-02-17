@@ -279,3 +279,20 @@ func ResolvePeer(ctx context.Context, identifier string) (tg.InputPeerClass, err
 	}
 	return GetInputPeerByID(ctx, id)
 }
+
+// StorePeers persists chats and users into peer storage so they can be resolved by ID later.
+func StorePeers(ctx context.Context, chats []tg.ChatClass, users []tg.UserClass) {
+	db := PeerStorage()
+	for _, chat := range chats {
+		var p storage.Peer
+		if p.FromChat(chat) {
+			_ = db.Add(ctx, p)
+		}
+	}
+	for _, user := range users {
+		var p storage.Peer
+		if p.FromUser(user) {
+			_ = db.Add(ctx, p)
+		}
+	}
+}
