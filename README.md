@@ -9,7 +9,9 @@ Built on [gotd/td](https://github.com/gotd/td) — a pure Go MTProto 2.0 impleme
 ## Features
 
 - **Full user-account access** via MTProto (not Bot API) — access everything a real user can
-- **54 tools** across 12 categories: messages, chats, media, contacts, reactions, stories, forums, admin, and more
+- **59 tools** across 15 categories: messages, chats, media, contacts, reactions, stories, forums, admin, and more
+- **5 compound tools** — high-level workflow operations that aggregate multiple API calls into one (get unread, chat context, bulk forward, export, cross-chat search)
+- **3 MCP prompts** — workflow recipes that guide AI through common tasks (daily digest, community management, content broadcasting)
 - **MCP-driven auth** — no terminal interaction needed, authenticate entirely through your AI client
 - **Session persistence** — authenticate once, auto-reconnect on restart
 - **Dual transport** — stdio (for Claude Code, Cursor, etc.) and HTTP (streamable)
@@ -88,7 +90,7 @@ docker build -t telegram-mcp .
 docker run -e TELEGRAM_API_ID=... -e TELEGRAM_API_HASH=... -e TELEGRAM_PHONE=... -p 3002:8080 telegram-mcp --http_port 8080
 ```
 
-## Tools (54)
+## Tools (59)
 
 ### Auth (3)
 
@@ -204,6 +206,49 @@ docker run -e TELEGRAM_API_ID=... -e TELEGRAM_API_HASH=... -e TELEGRAM_PHONE=...
 | `telegram_get_participants` | List channel/supergroup members |
 | `telegram_get_admin_log` | View admin action log |
 
+### Drafts (2)
+
+| Tool | Description |
+|------|-------------|
+| `telegram_set_draft` | Set a draft message in a chat |
+| `telegram_clear_draft` | Clear the draft message in a chat |
+
+### Folders (2)
+
+| Tool | Description |
+|------|-------------|
+| `telegram_get_folders` | Get all chat folders |
+| `telegram_get_folder_chats` | Get chats in a specific folder |
+
+### Profile (2)
+
+| Tool | Description |
+|------|-------------|
+| `telegram_update_profile` | Update your profile (name, bio) |
+| `telegram_get_read_participants` | Get who has read a message |
+
+### Compound (5)
+
+High-level tools that combine multiple API calls into a single operation, reducing round-trips and simplifying complex workflows.
+
+| Tool | Description |
+|------|-------------|
+| `telegram_get_unread` | Get all unread dialogs with preview messages in one call |
+| `telegram_chat_context` | Get complete chat snapshot: info, messages, pinned, participants |
+| `telegram_forward_bulk` | Forward messages to multiple destinations at once |
+| `telegram_export_messages` | Export message history with auto-pagination (up to 500) |
+| `telegram_search_cross_chat` | Search a query across multiple chats simultaneously |
+
+## Prompts (3)
+
+MCP prompts are workflow recipes that guide AI assistants through common Telegram tasks.
+
+| Prompt | Description | Arguments |
+|--------|-------------|-----------|
+| `daily_digest` | Create a prioritized digest of unread messages | — |
+| `community_manager` | Analyze and manage a Telegram community | `peer` |
+| `content_broadcaster` | Cross-post content to multiple channels | `source_peer`, `destinations` |
+
 ## Architecture
 
 ```
@@ -222,6 +267,11 @@ tools/
   telegram_forum.go           Forum topics (create, list, edit)
   telegram_story.go           Stories (get, send, delete)
   telegram_admin.go           Admin (rights, bans, participants, action log)
+  telegram_draft.go           Drafts (set, clear)
+  telegram_folder.go          Folders (get folders, get folder chats)
+  telegram_profile.go         Profile (update, read participants)
+  telegram_compound.go        Compound (unread, context, bulk forward, export, cross-search)
+  telegram_prompts.go         MCP Prompts (daily digest, community manager, content broadcaster)
 ```
 
 ## License
