@@ -12,6 +12,12 @@ Built on [gotd/td](https://github.com/gotd/td) — a pure Go MTProto 2.0 impleme
 - Supports both stdio and HTTP (streamable) transport
 - 22 tools covering messages, chats, media, users, and auth
 
+## Installation
+
+```bash
+go install github.com/nguyenvanduocit/telegram-mcp@latest
+```
+
 ## Setup
 
 ### 1. Get Telegram API credentials
@@ -37,10 +43,13 @@ go run . --env .env
 
 ```bash
 # stdio mode (for MCP clients like Claude Code)
-go run .
+telegram-mcp
 
 # HTTP mode
-go run . --http_port 3002
+telegram-mcp --http_port 3002
+
+# or with env file
+telegram-mcp --env .env
 ```
 
 ### 4. Authenticate
@@ -64,32 +73,11 @@ docker run -e TELEGRAM_API_ID=... -e TELEGRAM_API_HASH=... -e TELEGRAM_PHONE=...
 
 ### Claude Code
 
-Add to your MCP config:
-
 ```json
 {
   "mcpServers": {
     "telegram": {
-      "command": "go",
-      "args": ["run", "."],
-      "cwd": "/path/to/telegram-mcp",
-      "env": {
-        "TELEGRAM_API_ID": "12345",
-        "TELEGRAM_API_HASH": "your_api_hash",
-        "TELEGRAM_PHONE": "+1234567890"
-      }
-    }
-  }
-}
-```
-
-Or with the built binary:
-
-```json
-{
-  "mcpServers": {
-    "telegram": {
-      "command": "/path/to/telegram-mcp",
+      "command": "telegram-mcp",
       "env": {
         "TELEGRAM_API_ID": "12345",
         "TELEGRAM_API_HASH": "your_api_hash",
