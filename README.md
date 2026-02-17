@@ -23,7 +23,7 @@ Go to [https://my.telegram.org/apps](https://my.telegram.org/apps) and create an
 ```bash
 export TELEGRAM_API_ID=12345
 export TELEGRAM_API_HASH=your_api_hash
-export TELEGRAM_PHONE=+1234567890
+export TELEGRAM_PHONE=+1234567890  # your Telegram account phone number
 export TELEGRAM_SESSION_DIR=~/.telegram-mcp  # optional
 ```
 

@@ -44,7 +44,7 @@ func main() {
 		fmt.Println("2. Set environment variables:")
 		fmt.Println("   TELEGRAM_API_ID=12345")
 		fmt.Println("   TELEGRAM_API_HASH=your_api_hash")
-		fmt.Println("   TELEGRAM_PHONE=+1234567890")
+		fmt.Println("   TELEGRAM_PHONE=+1234567890  (your Telegram account phone number)")
 		fmt.Println("   TELEGRAM_SESSION_DIR=~/.telegram-mcp  (optional)")
 		os.Exit(1)
 	}
