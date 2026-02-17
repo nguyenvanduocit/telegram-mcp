@@ -42,11 +42,11 @@ telegram-mcp --env .env
 
 ### 3. Run
 
-```bash
-# stdio mode (for MCP clients like Claude Code)
-telegram-mcp --env .env
+Stdio mode is used by MCP clients automatically (see [MCP Client Configuration](#mcp-client-configuration) below).
 
-# HTTP mode
+To run as an HTTP server:
+
+```bash
 telegram-mcp --env .env --http_port 3002
 ```
 
