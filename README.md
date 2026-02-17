@@ -1,5 +1,7 @@
 # Telegram MCP
 
+[![Install in Claude Code](https://img.shields.io/badge/Install_in-Claude_Code-F96854?style=for-the-badge)](https://claude.ai/new?q=Install+the+Telegram+MCP+server+from+github.com%2Fnguyenvanduocit%2Ftelegram-mcp+and+guide+me+through+setup)
+
 Go-based [MCP](https://modelcontextprotocol.io/) server for Telegram using MTProto. Enables AI assistants to interact with Telegram as a **user account** (not a bot).
 
 Built on [gotd/td](https://github.com/gotd/td) — a pure Go MTProto 2.0 implementation.
