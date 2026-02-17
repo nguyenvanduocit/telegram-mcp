@@ -91,6 +91,7 @@ type sendMessageInput struct {
 	Peer         string `json:"peer" jsonschema:"required"`
 	Message      string `json:"message" jsonschema:"required"`
 	ReplyToMsgID int    `json:"reply_to_msg_id"`
+	ScheduleDate int    `json:"schedule_date"`
 }
 
 // Get History
@@ -141,6 +142,60 @@ type pinMessageInput struct {
 	Silent    bool   `json:"silent"`
 }
 
+// Search Global
+
+type searchGlobalInput struct {
+	Query string `json:"query" jsonschema:"required"`
+	Limit int    `json:"limit"`
+}
+
+// Read History
+
+type readHistoryInput struct {
+	Peer  string `json:"peer" jsonschema:"required"`
+	MaxID int    `json:"max_id"`
+}
+
+// Set Typing
+
+type setTypingInput struct {
+	Peer   string `json:"peer" jsonschema:"required"`
+	Action string `json:"action"`
+}
+
+// Unpin All Messages
+
+type unpinAllMessagesInput struct {
+	Peer string `json:"peer" jsonschema:"required"`
+}
+
+// Delete History
+
+type deleteHistoryInput struct {
+	Peer   string `json:"peer" jsonschema:"required"`
+	MaxID  int    `json:"max_id"`
+	Revoke *bool  `json:"revoke"`
+}
+
+// Translate
+
+type translateInput struct {
+	Peer      string `json:"peer" jsonschema:"required"`
+	MessageID int    `json:"message_id" jsonschema:"required"`
+	ToLang    string `json:"to_lang" jsonschema:"required"`
+}
+
+// Send Poll
+
+type sendPollInput struct {
+	Peer           string `json:"peer" jsonschema:"required"`
+	Question       string `json:"question" jsonschema:"required"`
+	Options        string `json:"options" jsonschema:"required"`
+	MultipleChoice bool   `json:"multiple_choice"`
+	Quiz           bool   `json:"quiz"`
+	CorrectOption  int    `json:"correct_option"`
+}
+
 func RegisterMessageTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("telegram_send_message",
@@ -150,6 +205,7 @@ func RegisterMessageTools(s *server.MCPServer) {
 			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
 			mcp.WithString("message", mcp.Required(), mcp.Description("Message text to send")),
 			mcp.WithNumber("reply_to_msg_id", mcp.Description("Message ID to reply to (optional)")),
+			mcp.WithNumber("schedule_date", mcp.Description("Unix timestamp to schedule message for future delivery")),
 		),
 		mcp.NewTypedToolHandler(handleSendMessage),
 	)
@@ -225,6 +281,88 @@ func RegisterMessageTools(s *server.MCPServer) {
 		),
 		mcp.NewTypedToolHandler(handlePinMessage),
 	)
+
+	s.AddTool(
+		mcp.NewTool("telegram_search_global",
+			mcp.WithDescription("Search messages across all chats globally"),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithString("query", mcp.Required(), mcp.Description("Search query string")),
+			mcp.WithNumber("limit", mcp.Description("Maximum number of results (default 20)")),
+		),
+		mcp.NewTypedToolHandler(handleSearchGlobal),
+	)
+
+	s.AddTool(
+		mcp.NewTool("telegram_read_history",
+			mcp.WithDescription("Mark messages as read in a Telegram chat"),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
+			mcp.WithNumber("max_id", mcp.Description("Mark messages up to this ID as read (default 0 = read all)")),
+		),
+		mcp.NewTypedToolHandler(handleReadHistory),
+	)
+
+	s.AddTool(
+		mcp.NewTool("telegram_set_typing",
+			mcp.WithDescription("Set typing status in a Telegram chat"),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
+			mcp.WithString("action", mcp.Description("Typing action: typing, cancel, record_video, upload_video, record_audio, upload_audio, upload_document, choose_sticker, game (default: typing)")),
+		),
+		mcp.NewTypedToolHandler(handleSetTyping),
+	)
+
+	s.AddTool(
+		mcp.NewTool("telegram_unpin_all_messages",
+			mcp.WithDescription("Unpin all pinned messages in a Telegram chat"),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithDestructiveHintAnnotation(true),
+			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
+		),
+		mcp.NewTypedToolHandler(handleUnpinAllMessages),
+	)
+
+	s.AddTool(
+		mcp.NewTool("telegram_delete_history",
+			mcp.WithDescription("Delete chat history in a Telegram chat"),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithDestructiveHintAnnotation(true),
+			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
+			mcp.WithNumber("max_id", mcp.Description("Delete messages up to this ID (default 0 = delete all)")),
+			mcp.WithBoolean("revoke", mcp.Description("Delete for everyone (default true)")),
+		),
+		mcp.NewTypedToolHandler(handleDeleteHistory),
+	)
+
+	s.AddTool(
+		mcp.NewTool("telegram_translate",
+			mcp.WithDescription("Translate a message to a specified language"),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
+			mcp.WithNumber("message_id", mcp.Required(), mcp.Description("ID of the message to translate")),
+			mcp.WithString("to_lang", mcp.Required(), mcp.Description("Two-letter ISO 639-1 language code (e.g. \"en\", \"vi\", \"ja\")")),
+		),
+		mcp.NewTypedToolHandler(handleTranslate),
+	)
+
+	s.AddTool(
+		mcp.NewTool("telegram_send_poll",
+			mcp.WithDescription("Send a poll to a Telegram chat"),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
+			mcp.WithString("question", mcp.Required(), mcp.Description("Poll question text")),
+			mcp.WithString("options", mcp.Required(), mcp.Description("Comma-separated poll options")),
+			mcp.WithBoolean("multiple_choice", mcp.Description("Allow multiple answers")),
+			mcp.WithBoolean("quiz", mcp.Description("Quiz mode with correct answer")),
+			mcp.WithNumber("correct_option", mcp.Description("0-indexed correct option for quiz mode")),
+		),
+		mcp.NewTypedToolHandler(handleSendPoll),
+	)
 }
 
 func handleSendMessage(_ context.Context, _ mcp.CallToolRequest, input sendMessageInput) (*mcp.CallToolResult, error) {
@@ -245,11 +383,18 @@ func handleSendMessage(_ context.Context, _ mcp.CallToolRequest, input sendMessa
 		req.SetReplyTo(&tg.InputReplyToMessage{ReplyToMsgID: input.ReplyToMsgID})
 	}
 
+	if input.ScheduleDate > 0 {
+		req.SetScheduleDate(input.ScheduleDate)
+	}
+
 	_, err = services.API().MessagesSendMessage(tgCtx, req)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("failed to send message: %v", err)), nil
 	}
 
+	if input.ScheduleDate > 0 {
+		return mcp.NewToolResultText("Message scheduled successfully."), nil
+	}
 	return mcp.NewToolResultText("Message sent successfully."), nil
 }
 
@@ -419,4 +564,222 @@ func handlePinMessage(_ context.Context, _ mcp.CallToolRequest, input pinMessage
 	}
 
 	return mcp.NewToolResultText("Message pinned successfully."), nil
+}
+
+func handleSearchGlobal(_ context.Context, _ mcp.CallToolRequest, input searchGlobalInput) (*mcp.CallToolResult, error) {
+	tgCtx := services.Context()
+
+	limit := input.Limit
+	if limit <= 0 {
+		limit = 20
+	}
+
+	result, err := services.API().MessagesSearchGlobal(tgCtx, &tg.MessagesSearchGlobalRequest{
+		Q:          input.Query,
+		Filter:     &tg.InputMessagesFilterEmpty{},
+		Limit:      limit,
+		OffsetPeer: &tg.InputPeerEmpty{},
+	})
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to search globally: %v", err)), nil
+	}
+
+	msgs := extractMessages(tgCtx, result)
+	return mcp.NewToolResultText(formatMessages(msgs)), nil
+}
+
+func handleReadHistory(_ context.Context, _ mcp.CallToolRequest, input readHistoryInput) (*mcp.CallToolResult, error) {
+	tgCtx := services.Context()
+
+	peer, err := services.ResolvePeer(tgCtx, input.Peer)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
+	}
+
+	maxID := input.MaxID
+
+	switch p := peer.(type) {
+	case *tg.InputPeerChannel:
+		_, err = services.API().ChannelsReadHistory(tgCtx, &tg.ChannelsReadHistoryRequest{
+			Channel: &tg.InputChannel{ChannelID: p.ChannelID, AccessHash: p.AccessHash},
+			MaxID:   maxID,
+		})
+	default:
+		_, err = services.API().MessagesReadHistory(tgCtx, &tg.MessagesReadHistoryRequest{
+			Peer:  peer,
+			MaxID: maxID,
+		})
+	}
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to read history: %v", err)), nil
+	}
+
+	return mcp.NewToolResultText("History marked as read."), nil
+}
+
+func handleSetTyping(_ context.Context, _ mcp.CallToolRequest, input setTypingInput) (*mcp.CallToolResult, error) {
+	tgCtx := services.Context()
+
+	peer, err := services.ResolvePeer(tgCtx, input.Peer)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
+	}
+
+	var action tg.SendMessageActionClass
+	switch input.Action {
+	case "cancel":
+		action = &tg.SendMessageCancelAction{}
+	case "record_video":
+		action = &tg.SendMessageRecordVideoAction{}
+	case "upload_video":
+		action = &tg.SendMessageUploadVideoAction{}
+	case "record_audio":
+		action = &tg.SendMessageRecordRoundAction{}
+	case "upload_audio":
+		action = &tg.SendMessageUploadAudioAction{}
+	case "upload_document":
+		action = &tg.SendMessageUploadDocumentAction{}
+	case "choose_sticker":
+		action = &tg.SendMessageChooseStickerAction{}
+	case "game":
+		action = &tg.SendMessageGamePlayAction{}
+	default:
+		action = &tg.SendMessageTypingAction{}
+	}
+
+	_, err = services.API().MessagesSetTyping(tgCtx, &tg.MessagesSetTypingRequest{
+		Peer:   peer,
+		Action: action,
+	})
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to set typing: %v", err)), nil
+	}
+
+	return mcp.NewToolResultText("Typing status set."), nil
+}
+
+func handleUnpinAllMessages(_ context.Context, _ mcp.CallToolRequest, input unpinAllMessagesInput) (*mcp.CallToolResult, error) {
+	tgCtx := services.Context()
+
+	peer, err := services.ResolvePeer(tgCtx, input.Peer)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
+	}
+
+	_, err = services.API().MessagesUnpinAllMessages(tgCtx, &tg.MessagesUnpinAllMessagesRequest{
+		Peer: peer,
+	})
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to unpin all messages: %v", err)), nil
+	}
+
+	return mcp.NewToolResultText("All messages unpinned successfully."), nil
+}
+
+func handleDeleteHistory(_ context.Context, _ mcp.CallToolRequest, input deleteHistoryInput) (*mcp.CallToolResult, error) {
+	tgCtx := services.Context()
+
+	peer, err := services.ResolvePeer(tgCtx, input.Peer)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
+	}
+
+	maxID := input.MaxID
+
+	revoke := true
+	if input.Revoke != nil {
+		revoke = *input.Revoke
+	}
+
+	_, err = services.API().MessagesDeleteHistory(tgCtx, &tg.MessagesDeleteHistoryRequest{
+		Peer:   peer,
+		MaxID:  maxID,
+		Revoke: revoke,
+	})
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to delete history: %v", err)), nil
+	}
+
+	return mcp.NewToolResultText("Chat history deleted successfully."), nil
+}
+
+func handleTranslate(_ context.Context, _ mcp.CallToolRequest, input translateInput) (*mcp.CallToolResult, error) {
+	tgCtx := services.Context()
+
+	peer, err := services.ResolvePeer(tgCtx, input.Peer)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
+	}
+
+	req := &tg.MessagesTranslateTextRequest{
+		ToLang: input.ToLang,
+	}
+	req.SetPeer(peer)
+	req.SetID([]int{input.MessageID})
+
+	result, err := services.API().MessagesTranslateText(tgCtx, req)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to translate message: %v", err)), nil
+	}
+
+	var sb strings.Builder
+	for _, r := range result.Result {
+		sb.WriteString(r.Text)
+		sb.WriteString("\n")
+	}
+
+	text := strings.TrimSpace(sb.String())
+	if text == "" {
+		return mcp.NewToolResultText("No translation available."), nil
+	}
+	return mcp.NewToolResultText(text), nil
+}
+
+func handleSendPoll(_ context.Context, _ mcp.CallToolRequest, input sendPollInput) (*mcp.CallToolResult, error) {
+	tgCtx := services.Context()
+
+	peer, err := services.ResolvePeer(tgCtx, input.Peer)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
+	}
+
+	optionParts := strings.Split(input.Options, ",")
+	if len(optionParts) < 2 {
+		return mcp.NewToolResultError("poll requires at least 2 options"), nil
+	}
+
+	answers := make([]tg.PollAnswer, len(optionParts))
+	for i, opt := range optionParts {
+		answers[i] = tg.PollAnswer{
+			Text:   tg.TextWithEntities{Text: strings.TrimSpace(opt)},
+			Option: []byte{byte(i)},
+		}
+	}
+
+	poll := tg.Poll{
+		ID:             randomID(),
+		Question:       tg.TextWithEntities{Text: input.Question},
+		Answers:        answers,
+		MultipleChoice: input.MultipleChoice,
+		Quiz:           input.Quiz,
+	}
+
+	media := &tg.InputMediaPoll{
+		Poll: poll,
+	}
+
+	if input.Quiz {
+		media.SetCorrectAnswers([][]byte{{byte(input.CorrectOption)}})
+	}
+
+	_, err = services.API().MessagesSendMedia(tgCtx, &tg.MessagesSendMediaRequest{
+		Peer:     peer,
+		Media:    media,
+		RandomID: randomID(),
+	})
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to send poll: %v", err)), nil
+	}
+
+	return mcp.NewToolResultText("Poll sent successfully."), nil
 }

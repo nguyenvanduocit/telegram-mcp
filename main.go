@@ -70,6 +70,13 @@ func main() {
 	tools.RegisterChatTools(mcpServer)
 	tools.RegisterMediaTools(mcpServer)
 	tools.RegisterUserTools(mcpServer)
+	tools.RegisterReactionTools(mcpServer)
+	tools.RegisterInviteTools(mcpServer)
+	tools.RegisterNotificationTools(mcpServer)
+	tools.RegisterContactTools(mcpServer)
+	tools.RegisterForumTools(mcpServer)
+	tools.RegisterStoryTools(mcpServer)
+	tools.RegisterAdminTools(mcpServer)
 
 	if *httpPort != "" {
 		fmt.Printf("Starting Telegram MCP Server on http://localhost:%s/mcp\n", *httpPort)

@@ -38,6 +38,16 @@ type createGroupInput struct {
 	Users string `json:"users" jsonschema:"required"`
 }
 
+type toggleDialogPinInput struct {
+	Peer   string `json:"peer" jsonschema:"required"`
+	Pinned bool   `json:"pinned"`
+}
+
+type markDialogUnreadInput struct {
+	Peer   string `json:"peer" jsonschema:"required"`
+	Unread bool   `json:"unread"`
+}
+
 func RegisterChatTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("telegram_list_chats",
@@ -97,6 +107,26 @@ func RegisterChatTools(s *server.MCPServer) {
 			mcp.WithString("users", mcp.Required(), mcp.Description("Comma-separated user IDs or @usernames to invite")),
 		),
 		mcp.NewTypedToolHandler(handleCreateGroup),
+	)
+
+	s.AddTool(
+		mcp.NewTool("telegram_toggle_dialog_pin",
+			mcp.WithDescription("Pin or unpin a dialog/chat in the chat list"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
+			mcp.WithBoolean("pinned", mcp.Description("Whether to pin (true) or unpin (false), default true")),
+		),
+		mcp.NewTypedToolHandler(handleToggleDialogPin),
+	)
+
+	s.AddTool(
+		mcp.NewTool("telegram_mark_dialog_unread",
+			mcp.WithDescription("Mark or unmark a dialog/chat as unread"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
+			mcp.WithBoolean("unread", mcp.Description("Whether to mark as unread (true) or read (false), default true")),
+		),
+		mcp.NewTypedToolHandler(handleMarkDialogUnread),
 	)
 }
 
@@ -454,4 +484,50 @@ func handleCreateGroup(_ context.Context, _ mcp.CallToolRequest, input createGro
 	}
 
 	return mcp.NewToolResultText(fmt.Sprintf("Group %q created successfully.", input.Title)), nil
+}
+
+func handleToggleDialogPin(_ context.Context, _ mcp.CallToolRequest, input toggleDialogPinInput) (*mcp.CallToolResult, error) {
+	tgCtx := services.Context()
+
+	peer, err := services.ResolvePeer(tgCtx, input.Peer)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
+	}
+
+	_, err = services.API().MessagesToggleDialogPin(tgCtx, &tg.MessagesToggleDialogPinRequest{
+		Peer:   &tg.InputDialogPeer{Peer: peer},
+		Pinned: input.Pinned,
+	})
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to toggle pin: %v", err)), nil
+	}
+
+	action := "pinned"
+	if !input.Pinned {
+		action = "unpinned"
+	}
+	return mcp.NewToolResultText(fmt.Sprintf("Dialog %s successfully.", action)), nil
+}
+
+func handleMarkDialogUnread(_ context.Context, _ mcp.CallToolRequest, input markDialogUnreadInput) (*mcp.CallToolResult, error) {
+	tgCtx := services.Context()
+
+	peer, err := services.ResolvePeer(tgCtx, input.Peer)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
+	}
+
+	_, err = services.API().MessagesMarkDialogUnread(tgCtx, &tg.MessagesMarkDialogUnreadRequest{
+		Peer:   &tg.InputDialogPeer{Peer: peer},
+		Unread: input.Unread,
+	})
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to mark dialog unread: %v", err)), nil
+	}
+
+	action := "marked as unread"
+	if !input.Unread {
+		action = "marked as read"
+	}
+	return mcp.NewToolResultText(fmt.Sprintf("Dialog %s successfully.", action)), nil
 }

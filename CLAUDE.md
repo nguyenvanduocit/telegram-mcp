@@ -15,12 +15,19 @@ go test ./...
 
 - **main.go** - Entry point, env validation, MCP server setup, tool registration
 - **services/telegram.go** - Telegram client singleton (gotd/td), auth state machine, peer resolution
-- **tools/** - MCP tool implementations organized by category
-  - `telegram_auth.go` - Auth status, send code, send 2FA password (MCP-driven auth)
-  - `telegram_message.go` - Send, read, search, forward, edit, delete, pin messages
-  - `telegram_chat.go` - List, get, search, join, leave, create chats
-  - `telegram_media.go` - Download, upload media, get file info
+- **tools/** - MCP tool implementations organized by category (54 tools, 12 categories)
+  - `telegram_auth.go` - Auth status, send code, send 2FA password
+  - `telegram_message.go` - Send, search, forward, edit, delete, pin, translate, polls, typing, read history
+  - `telegram_chat.go` - List, get, search, join, leave, create, pin/unread dialogs
+  - `telegram_media.go` - Download, upload, file info, view image
   - `telegram_user.go` - Get user info, resolve usernames, search contacts
+  - `telegram_contact.go` - Get contacts, import, block/unblock
+  - `telegram_reaction.go` - Send reactions, get message reactions
+  - `telegram_invite.go` - Export, list, revoke invite links
+  - `telegram_notification.go` - Get/set notification settings
+  - `telegram_forum.go` - Create, list, edit forum topics
+  - `telegram_story.go` - Get, send, delete stories
+  - `telegram_admin.go` - Admin rights, bans, participants, admin log
 
 ## Key Dependencies
 

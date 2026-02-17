@@ -19,6 +19,7 @@ import (
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/message/peer"
+	"github.com/gotd/td/telegram/query/dialogs"
 	"github.com/gotd/td/tg"
 	"go.uber.org/zap"
 	"golang.org/x/time/rate"
@@ -253,11 +254,16 @@ func StartTelegram(ctx context.Context) error {
 }
 
 func GetInputPeerByID(ctx context.Context, chatID int64) (tg.InputPeerClass, error) {
-	p, err := PeerStorage().Find(ctx, storage.PeerKey{ID: chatID})
-	if err != nil {
-		return nil, fmt.Errorf("peer %d not found in local storage: %w", chatID, err)
+	db := PeerStorage()
+	// PeerKey includes Kind in the storage key, but callers only provide a numeric ID.
+	// Try all peer kinds: User(0), Chat(1), Channel(2).
+	for kind := 0; kind <= 2; kind++ {
+		p, err := db.Find(ctx, storage.PeerKey{Kind: dialogs.PeerKind(kind), ID: chatID})
+		if err == nil {
+			return p.AsInputPeer(), nil
+		}
 	}
-	return p.AsInputPeer(), nil
+	return nil, fmt.Errorf("peer %d not found in local storage", chatID)
 }
 
 func ResolveUsername(ctx context.Context, username string) (tg.InputPeerClass, error) {

@@ -1,7 +1,9 @@
 package tools
 
 import (
+	"bytes"
 	"context"
+	"encoding/base64"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -30,6 +32,11 @@ type sendMediaInput struct {
 }
 
 type getFileInfoInput struct {
+	Peer      string `json:"peer" jsonschema:"required"`
+	MessageID int    `json:"message_id" jsonschema:"required"`
+}
+
+type viewImageInput struct {
 	Peer      string `json:"peer" jsonschema:"required"`
 	MessageID int    `json:"message_id" jsonschema:"required"`
 }
@@ -68,6 +75,17 @@ func RegisterMediaTools(s *server.MCPServer) {
 			mcp.WithNumber("message_id", mcp.Required(), mcp.Description("ID of the message to inspect")),
 		),
 		mcp.NewTypedToolHandler(handleGetFileInfo),
+	)
+
+	s.AddTool(
+		mcp.NewTool("telegram_view_image",
+			mcp.WithDescription("Download and return a photo from a Telegram message as image content for AI viewing"),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
+			mcp.WithNumber("message_id", mcp.Required(), mcp.Description("ID of the message containing the photo")),
+		),
+		mcp.NewTypedToolHandler(handleViewImage),
 	)
 }
 
@@ -368,6 +386,69 @@ func handleGetFileInfo(_ context.Context, _ mcp.CallToolRequest, input getFileIn
 	}
 
 	return mcp.NewToolResultText(b.String()), nil
+}
+
+func handleViewImage(_ context.Context, _ mcp.CallToolRequest, input viewImageInput) (*mcp.CallToolResult, error) {
+	tgCtx := services.Context()
+
+	peer, err := services.ResolvePeer(tgCtx, input.Peer)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
+	}
+
+	msg, err := getMessageByID(tgCtx, peer, input.MessageID)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to get message: %v", err)), nil
+	}
+
+	if msg.Media == nil {
+		return mcp.NewToolResultError("message has no media"), nil
+	}
+
+	photo, ok := msg.Media.(*tg.MessageMediaPhoto)
+	if !ok {
+		return mcp.NewToolResultError(fmt.Sprintf("message media is %T, not a photo", msg.Media)), nil
+	}
+
+	p, ok := photo.Photo.(*tg.Photo)
+	if !ok {
+		return mcp.NewToolResultError("photo not available"), nil
+	}
+
+	// Pick the best size for AI viewing (x=800px is a good balance)
+	bestType := "x"
+	hasBest := false
+	for _, size := range p.Sizes {
+		if size.GetType() == bestType {
+			hasBest = true
+			break
+		}
+	}
+	if !hasBest {
+		// Fallback to largest available
+		for _, size := range p.Sizes {
+			t := size.GetType()
+			if t > bestType || bestType == "x" {
+				bestType = t
+			}
+		}
+	}
+
+	loc := &tg.InputPhotoFileLocation{
+		ID:            p.ID,
+		AccessHash:    p.AccessHash,
+		FileReference: p.FileReference,
+		ThumbSize:     bestType,
+	}
+
+	var buf bytes.Buffer
+	d := downloader.NewDownloader()
+	if _, err := d.Download(services.API(), loc).Stream(tgCtx, &buf); err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("failed to download photo: %v", err)), nil
+	}
+
+	b64 := base64.StdEncoding.EncodeToString(buf.Bytes())
+	return mcp.NewToolResultImage(fmt.Sprintf("Photo from message %d", msg.ID), b64, "image/jpeg"), nil
 }
 
 func formatSize(bytes int64) string {
