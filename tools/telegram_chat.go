@@ -84,6 +84,7 @@ func RegisterChatTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("telegram_join_chat",
 			mcp.WithDescription("Join a public chat/channel by username or invite link"),
+			mcp.WithReadOnlyHintAnnotation(false),
 			mcp.WithDestructiveHintAnnotation(false),
 			mcp.WithString("peer", mcp.Required(), mcp.Description("@username or invite link (https://t.me/+ or https://t.me/joinchat/)")),
 		),

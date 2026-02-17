@@ -18,7 +18,7 @@ type getNotifySettingsInput struct {
 
 type setNotifySettingsInput struct {
 	Peer         string `json:"peer" jsonschema:"required"`
-	MuteUntil    int    `json:"mute_until"`
+	MuteUntil    *int   `json:"mute_until"`
 	Silent       *bool  `json:"silent"`
 	ShowPreviews *bool  `json:"show_previews"`
 }
@@ -100,7 +100,9 @@ func handleSetNotifySettings(_ context.Context, _ mcp.CallToolRequest, input set
 	}
 
 	var settings tg.InputPeerNotifySettings
-	settings.SetMuteUntil(input.MuteUntil)
+	if input.MuteUntil != nil {
+		settings.SetMuteUntil(*input.MuteUntil)
+	}
 	if input.Silent != nil {
 		settings.SetSilent(*input.Silent)
 	}

@@ -747,6 +747,9 @@ func handleSendPoll(_ context.Context, _ mcp.CallToolRequest, input sendPollInpu
 	if len(optionParts) < 2 {
 		return mcp.NewToolResultError("poll requires at least 2 options"), nil
 	}
+	if len(optionParts) > 10 {
+		return mcp.NewToolResultError("poll supports maximum 10 options"), nil
+	}
 
 	answers := make([]tg.PollAnswer, len(optionParts))
 	for i, opt := range optionParts {
