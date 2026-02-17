@@ -9,34 +9,41 @@ import (
 	"github.com/nguyenvanduocit/telegram-mcp/services"
 )
 
-type SendCodeInput struct {
-	Code string `json:"code" validate:"required"`
+type authStatusInput struct{}
+
+type sendCodeInput struct {
+	Code string `json:"code" jsonschema:"required"`
 }
 
-type SendPasswordInput struct {
-	Password string `json:"password" validate:"required"`
+type sendPasswordInput struct {
+	Password string `json:"password" jsonschema:"required"`
 }
 
 func RegisterAuthTools(s *server.MCPServer) {
 	statusTool := mcp.NewTool("telegram_auth_status",
 		mcp.WithDescription("Check current Telegram authentication status"),
+		mcp.WithReadOnlyHintAnnotation(true),
 	)
-	s.AddTool(statusTool, handleAuthStatus)
+	s.AddTool(statusTool, mcp.NewTypedToolHandler(handleAuthStatus))
 
 	codeTool := mcp.NewTool("telegram_auth_send_code",
 		mcp.WithDescription("Submit the verification code received via SMS or Telegram app"),
 		mcp.WithString("code", mcp.Required(), mcp.Description("Verification code")),
+		mcp.WithReadOnlyHintAnnotation(false),
+		mcp.WithDestructiveHintAnnotation(false),
 	)
 	s.AddTool(codeTool, mcp.NewTypedToolHandler(handleSendCode))
 
 	passwordTool := mcp.NewTool("telegram_auth_send_password",
 		mcp.WithDescription("Submit 2FA password if required"),
 		mcp.WithString("password", mcp.Required(), mcp.Description("Two-factor authentication password")),
+		mcp.WithReadOnlyHintAnnotation(false),
+		mcp.WithDestructiveHintAnnotation(false),
 	)
 	s.AddTool(passwordTool, mcp.NewTypedToolHandler(handleSendPassword))
 }
 
-func handleAuthStatus(_ context.Context, _ mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func handleAuthStatus(_ context.Context, _ mcp.CallToolRequest, _ authStatusInput) (*mcp.CallToolResult, error) {
 	state := services.GetAuthState()
 	msg := fmt.Sprintf("Auth state: %s", state)
 	if state == services.AuthStateError {
@@ -45,7 +52,7 @@ func handleAuthStatus(_ context.Context, _ mcp.CallToolRequest) (*mcp.CallToolRe
 	return mcp.NewToolResultText(msg), nil
 }
 
-func handleSendCode(_ context.Context, _ mcp.CallToolRequest, input SendCodeInput) (*mcp.CallToolResult, error) {
+func handleSendCode(_ context.Context, _ mcp.CallToolRequest, input sendCodeInput) (*mcp.CallToolResult, error) {
 	newState, err := services.SubmitCode(input.Code)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("auth failed: %v", err)), nil
@@ -60,7 +67,7 @@ func handleSendCode(_ context.Context, _ mcp.CallToolRequest, input SendCodeInpu
 	}
 }
 
-func handleSendPassword(_ context.Context, _ mcp.CallToolRequest, input SendPasswordInput) (*mcp.CallToolResult, error) {
+func handleSendPassword(_ context.Context, _ mcp.CallToolRequest, input sendPasswordInput) (*mcp.CallToolResult, error) {
 	newState, err := services.SubmitPassword(input.Password)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("auth failed: %v", err)), nil

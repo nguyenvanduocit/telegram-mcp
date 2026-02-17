@@ -20,7 +20,8 @@ type getPeerStoriesInput struct {
 }
 
 type getAllStoriesInput struct {
-	Next bool `json:"next"`
+	Next  bool   `json:"next"`
+	State string `json:"state"`
 }
 
 type sendStoryInput struct {
@@ -52,6 +53,7 @@ func RegisterStoryTools(s *server.MCPServer) {
 			mcp.WithReadOnlyHintAnnotation(true),
 			mcp.WithDestructiveHintAnnotation(false),
 			mcp.WithBoolean("next", mcp.Description("Set to true to paginate to next results")),
+			mcp.WithString("state", mcp.Description("Pagination state token from previous response")),
 		),
 		mcp.NewTypedToolHandler(handleGetAllStories),
 	)
@@ -117,9 +119,13 @@ func handleGetPeerStories(_ context.Context, _ mcp.CallToolRequest, input getPee
 func handleGetAllStories(_ context.Context, _ mcp.CallToolRequest, input getAllStoriesInput) (*mcp.CallToolResult, error) {
 	tgCtx := services.Context()
 
-	result, err := services.API().StoriesGetAllStories(tgCtx, &tg.StoriesGetAllStoriesRequest{
+	req := &tg.StoriesGetAllStoriesRequest{
 		Next: input.Next,
-	})
+	}
+	if input.State != "" {
+		req.SetState(input.State)
+	}
+	result, err := services.API().StoriesGetAllStories(tgCtx, req)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("failed to get all stories: %v", err)), nil
 	}
@@ -147,6 +153,10 @@ func handleGetAllStories(_ context.Context, _ mcp.CallToolRequest, input getAllS
 		fmt.Fprintf(&b, "\nPeer %s: stories [%s]\n", peerID, strings.Join(storyIDs, ", "))
 	}
 
+	if allStories.State != "" {
+		fmt.Fprintf(&b, "\nPagination state: %s\n", allStories.State)
+	}
+
 	return mcp.NewToolResultText(b.String()), nil
 }
 
@@ -158,28 +168,29 @@ func handleSendStory(_ context.Context, _ mcp.CallToolRequest, input sendStoryIn
 		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
 	}
 
-	if strings.Contains(input.FilePath, "..") {
-		return mcp.NewToolResultError("path traversal not allowed in file_path"), nil
+	cleanPath := filepath.Clean(input.FilePath)
+	if !filepath.IsAbs(cleanPath) {
+		return mcp.NewToolResultError("file_path must be an absolute path"), nil
 	}
-	if _, err := os.Stat(input.FilePath); err != nil {
+	if _, err := os.Stat(cleanPath); err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("file not found: %v", err)), nil
 	}
 
 	u := uploader.NewUploader(services.API())
-	uploaded, err := u.FromPath(tgCtx, input.FilePath)
+	uploaded, err := u.FromPath(tgCtx, cleanPath)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("failed to upload file: %v", err)), nil
 	}
 
 	var media tg.InputMediaClass
-	ext := strings.ToLower(filepath.Ext(input.FilePath))
+	ext := strings.ToLower(filepath.Ext(cleanPath))
 	switch ext {
 	case ".jpg", ".jpeg", ".png", ".webp":
 		media = &tg.InputMediaUploadedPhoto{File: uploaded}
 	default:
 		media = &tg.InputMediaUploadedDocument{
 			File:     uploaded,
-			MimeType: mimeFromPath(input.FilePath),
+			MimeType: mimeFromPath(cleanPath),
 			Attributes: []tg.DocumentAttributeClass{
 				&tg.DocumentAttributeVideo{},
 			},

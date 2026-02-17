@@ -97,6 +97,7 @@ func handleImportContacts(_ context.Context, _ mcp.CallToolRequest, input import
 
 	result, err := services.API().ContactsImportContacts(tgCtx, []tg.InputPhoneContact{
 		{
+			ClientID:  randomID(),
 			Phone:     input.Phone,
 			FirstName: input.FirstName,
 			LastName:  input.LastName,

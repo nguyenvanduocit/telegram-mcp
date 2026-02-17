@@ -1,4 +1,4 @@
-# Telegram MCP (telegram-cli)
+# Telegram MCP (telegram-mcp)
 
 ## Overview
 
@@ -35,7 +35,7 @@ graph TB
         A3[Custom Applications]
     end
     
-    subgraph "telegram-cli"
+    subgraph "telegram-mcp"
         MAIN[main.go<br/>Entry Point]
         
         subgraph "tools package"

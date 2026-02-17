@@ -1,15 +1,14 @@
 {
     "generation_info": {
-        "timestamp": "2026-02-16T17:05:25.066523",
+        "timestamp": "2026-02-17T11:41:09.676301",
         "main_model": "glm-5",
         "generator_version": "1.1.0",
-        "repo_path": "/Users/firegroup/projects/telegram-cli",
-        "commit_id": null,
-        "completed_at": "2026-02-16T23:40:01.010434"
+        "repo_path": "/Users/firegroup/projects/telegram-mcp",
+        "commit_id": null
     },
     "statistics": {
-        "total_components": 82,
-        "leaf_nodes": 82,
+        "total_components": 185,
+        "leaf_nodes": 185,
         "max_depth": 5
     },
     "pipeline_state": {

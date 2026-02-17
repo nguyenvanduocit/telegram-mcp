@@ -17,8 +17,14 @@ import (
 
 func randomID() int64 {
 	var b [8]byte
-	_, _ = rand.Read(b[:])
-	return int64(binary.LittleEndian.Uint64(b[:]))
+	if _, err := rand.Read(b[:]); err != nil {
+		panic(fmt.Sprintf("crypto/rand failed: %v", err))
+	}
+	v := int64(binary.LittleEndian.Uint64(b[:]) >> 1) // shift right to ensure positive
+	if v == 0 {
+		v = 1
+	}
+	return v
 }
 
 func formatMessages(msgs []tg.MessageClass) string {
@@ -410,6 +416,9 @@ func handleGetHistory(_ context.Context, _ mcp.CallToolRequest, input getHistory
 	if limit <= 0 {
 		limit = 20
 	}
+	if limit > 100 {
+		limit = 100
+	}
 
 	result, err := services.API().MessagesGetHistory(tgCtx, &tg.MessagesGetHistoryRequest{
 		Peer:     peer,
@@ -435,6 +444,9 @@ func handleSearchMessages(_ context.Context, _ mcp.CallToolRequest, input search
 	limit := input.Limit
 	if limit <= 0 {
 		limit = 20
+	}
+	if limit > 100 {
+		limit = 100
 	}
 
 	result, err := services.API().MessagesSearch(tgCtx, &tg.MessagesSearchRequest{
@@ -573,6 +585,9 @@ func handleSearchGlobal(_ context.Context, _ mcp.CallToolRequest, input searchGl
 	if limit <= 0 {
 		limit = 20
 	}
+	if limit > 100 {
+		limit = 100
+	}
 
 	result, err := services.API().MessagesSearchGlobal(tgCtx, &tg.MessagesSearchGlobalRequest{
 		Q:          input.Query,
@@ -634,7 +649,7 @@ func handleSetTyping(_ context.Context, _ mcp.CallToolRequest, input setTypingIn
 	case "upload_video":
 		action = &tg.SendMessageUploadVideoAction{}
 	case "record_audio":
-		action = &tg.SendMessageRecordRoundAction{}
+		action = &tg.SendMessageRecordAudioAction{}
 	case "upload_audio":
 		action = &tg.SendMessageUploadAudioAction{}
 	case "upload_document":
@@ -772,6 +787,9 @@ func handleSendPoll(_ context.Context, _ mcp.CallToolRequest, input sendPollInpu
 	}
 
 	if input.Quiz {
+		if input.CorrectOption < 0 || input.CorrectOption >= len(optionParts) {
+			return mcp.NewToolResultError(fmt.Sprintf("correct_option must be between 0 and %d", len(optionParts)-1)), nil
+		}
 		media.SetCorrectAnswers([][]byte{{byte(input.CorrectOption)}})
 	}
 

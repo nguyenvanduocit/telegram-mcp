@@ -41,6 +41,10 @@ type viewImageInput struct {
 	MessageID int    `json:"message_id" jsonschema:"required"`
 }
 
+var photoSizeOrder = map[string]int{
+	"s": 1, "m": 2, "x": 3, "y": 4, "w": 5,
+}
+
 func RegisterMediaTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("telegram_download_media",
@@ -179,9 +183,12 @@ func handleDownloadMedia(_ context.Context, _ mcp.CallToolRequest, input downloa
 	if downloadDir == "" {
 		downloadDir = "./downloads"
 	}
-	if strings.Contains(downloadDir, "..") {
-		return mcp.NewToolResultError("path traversal not allowed in download_dir"), nil
+	downloadDir = filepath.Clean(downloadDir)
+	absDir, err := filepath.Abs(downloadDir)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("invalid download_dir: %v", err)), nil
 	}
+	downloadDir = absDir
 	if err := os.MkdirAll(downloadDir, 0700); err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("failed to create download dir: %v", err)), nil
 	}
@@ -199,8 +206,7 @@ func handleDownloadMedia(_ context.Context, _ mcp.CallToolRequest, input downloa
 		var bestType string
 		for _, size := range photo.Sizes {
 			t := size.GetType()
-			// Prefer larger sizes: y > x > m > s
-			if bestType == "" || t > bestType {
+			if photoSizeOrder[t] > photoSizeOrder[bestType] {
 				bestType = t
 			}
 		}
@@ -233,7 +239,7 @@ func handleDownloadMedia(_ context.Context, _ mcp.CallToolRequest, input downloa
 		filename := fmt.Sprintf("doc_%d_%d", msg.ID, doc.ID)
 		for _, attr := range doc.Attributes {
 			if fn, ok := attr.(*tg.DocumentAttributeFilename); ok {
-				filename = fn.FileName
+				filename = filepath.Base(fn.FileName)
 				break
 			}
 		}
@@ -265,20 +271,21 @@ func handleSendMedia(_ context.Context, _ mcp.CallToolRequest, input sendMediaIn
 		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
 	}
 
-	if strings.Contains(input.FilePath, "..") {
-		return mcp.NewToolResultError("path traversal not allowed in file_path"), nil
+	cleanPath := filepath.Clean(input.FilePath)
+	if !filepath.IsAbs(cleanPath) {
+		return mcp.NewToolResultError("file_path must be an absolute path"), nil
 	}
-	if _, err := os.Stat(input.FilePath); err != nil {
+	if _, err := os.Stat(cleanPath); err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("file not found: %v", err)), nil
 	}
 
 	u := uploader.NewUploader(services.API())
-	uploaded, err := u.FromPath(tgCtx, input.FilePath)
+	uploaded, err := u.FromPath(tgCtx, cleanPath)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("failed to upload file: %v", err)), nil
 	}
 
-	mimeType := mimeFromPath(input.FilePath)
+	mimeType := mimeFromPath(cleanPath)
 
 	_, err = services.API().MessagesSendMedia(tgCtx, &tg.MessagesSendMediaRequest{
 		Peer: peer,
@@ -286,7 +293,7 @@ func handleSendMedia(_ context.Context, _ mcp.CallToolRequest, input sendMediaIn
 			File:     uploaded,
 			MimeType: mimeType,
 			Attributes: []tg.DocumentAttributeClass{
-				&tg.DocumentAttributeFilename{FileName: filepath.Base(input.FilePath)},
+				&tg.DocumentAttributeFilename{FileName: filepath.Base(cleanPath)},
 			},
 		},
 		Message:  input.Caption,
@@ -296,7 +303,7 @@ func handleSendMedia(_ context.Context, _ mcp.CallToolRequest, input sendMediaIn
 		return mcp.NewToolResultError(fmt.Sprintf("failed to send media: %v", err)), nil
 	}
 
-	return mcp.NewToolResultText(fmt.Sprintf("Media sent successfully: %s", filepath.Base(input.FilePath))), nil
+	return mcp.NewToolResultText(fmt.Sprintf("Media sent successfully: %s", filepath.Base(cleanPath))), nil
 }
 
 func handleGetFileInfo(_ context.Context, _ mcp.CallToolRequest, input getFileInfoInput) (*mcp.CallToolResult, error) {
@@ -426,10 +433,13 @@ func handleViewImage(_ context.Context, _ mcp.CallToolRequest, input viewImageIn
 	}
 	if !hasBest {
 		// Fallback to largest available
+		bestType = ""
+		bestOrder := 0
 		for _, size := range p.Sizes {
 			t := size.GetType()
-			if t > bestType || bestType == "x" {
+			if photoSizeOrder[t] > bestOrder {
 				bestType = t
+				bestOrder = photoSizeOrder[t]
 			}
 		}
 	}
@@ -448,7 +458,20 @@ func handleViewImage(_ context.Context, _ mcp.CallToolRequest, input viewImageIn
 	}
 
 	b64 := base64.StdEncoding.EncodeToString(buf.Bytes())
-	return mcp.NewToolResultImage(fmt.Sprintf("Photo from message %d", msg.ID), b64, "image/jpeg"), nil
+	return mcp.NewToolResultImage(fmt.Sprintf("Photo from message %d", msg.ID), b64, detectImageMIME(buf.Bytes())), nil
+}
+
+func detectImageMIME(data []byte) string {
+	if len(data) >= 3 && data[0] == 0xFF && data[1] == 0xD8 && data[2] == 0xFF {
+		return "image/jpeg"
+	}
+	if len(data) >= 8 && string(data[:8]) == "\x89PNG\r\n\x1a\n" {
+		return "image/png"
+	}
+	if len(data) >= 4 && string(data[:4]) == "RIFF" && len(data) >= 12 && string(data[8:12]) == "WEBP" {
+		return "image/webp"
+	}
+	return "image/jpeg" // fallback
 }
 
 func formatSize(bytes int64) string {

@@ -273,6 +273,9 @@ func handleGetParticipants(_ context.Context, _ mcp.CallToolRequest, input getPa
 	if limit <= 0 {
 		limit = 20
 	}
+	if limit > 100 {
+		limit = 100
+	}
 
 	var filter tg.ChannelParticipantsFilterClass
 	switch input.Filter {
@@ -387,6 +390,9 @@ func handleGetAdminLog(_ context.Context, _ mcp.CallToolRequest, input getAdminL
 	limit := input.Limit
 	if limit <= 0 {
 		limit = 20
+	}
+	if limit > 100 {
+		limit = 100
 	}
 
 	result, err := services.API().ChannelsGetAdminLog(tgCtx, &tg.ChannelsGetAdminLogRequest{

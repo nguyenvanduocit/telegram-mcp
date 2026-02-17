@@ -43,6 +43,7 @@ var (
 	selfUser     *tg.User
 	ready        = make(chan struct{})
 	readyOnce    sync.Once
+	startupErr   error
 
 	// Auth state
 	authMu       sync.Mutex
@@ -93,7 +94,11 @@ func SubmitCode(code string) (AuthState, error) {
 	if current != AuthStateWaitingCode {
 		return current, fmt.Errorf("not waiting for code, current state: %s", current)
 	}
-	authCodeCh <- code
+	select {
+	case authCodeCh <- code:
+	case <-time.After(30 * time.Second):
+		return GetAuthState(), fmt.Errorf("timeout: auth flow not accepting code")
+	}
 	newState := waitAuthStateChange(AuthStateWaitingCode)
 	if newState == AuthStateError {
 		return newState, fmt.Errorf("%s", GetAuthError())
@@ -106,7 +111,11 @@ func SubmitPassword(password string) (AuthState, error) {
 	if current != AuthStateWaitingPassword {
 		return current, fmt.Errorf("not waiting for password, current state: %s", current)
 	}
-	authPasswordCh <- password
+	select {
+	case authPasswordCh <- password:
+	case <-time.After(30 * time.Second):
+		return GetAuthState(), fmt.Errorf("timeout: auth flow not accepting password")
+	}
 	newState := waitAuthStateChange(AuthStateWaitingPassword)
 	if newState == AuthStateError {
 		return newState, fmt.Errorf("%s", GetAuthError())
@@ -120,26 +129,41 @@ func ReadyCh() <-chan struct{} {
 
 func API() *tg.Client {
 	<-ready
+	if telegramAPI == nil {
+		panic("Telegram client not initialized - check startup logs")
+	}
 	return telegramAPI
 }
 
 func PeerStorage() *pebble.PeerStorage {
 	<-ready
+	if peerDB == nil {
+		panic("Telegram client not initialized - check startup logs")
+	}
 	return peerDB
 }
 
 func Resolver() *storage.ResolverCache {
 	<-ready
+	if peerResolver == nil {
+		panic("Telegram client not initialized - check startup logs")
+	}
 	return peerResolver
 }
 
 func Self() *tg.User {
 	<-ready
+	if selfUser == nil {
+		panic("Telegram client not initialized - check startup logs")
+	}
 	return selfUser
 }
 
 func Context() context.Context {
 	<-ready
+	if telegramCtx == nil {
+		panic("Telegram client not initialized - check startup logs")
+	}
 	return telegramCtx
 }
 
@@ -180,16 +204,23 @@ func (mcpAuth) AcceptTermsOfService(_ context.Context, tos tg.HelpTermsOfService
 }
 
 func StartTelegram(ctx context.Context) error {
+	defer readyOnce.Do(func() { close(ready) })
+
 	appID, err := strconv.Atoi(os.Getenv("TELEGRAM_API_ID"))
 	if err != nil {
-		return fmt.Errorf("invalid TELEGRAM_API_ID: %w", err)
+		startupErr = fmt.Errorf("invalid TELEGRAM_API_ID: %w", err)
+		return startupErr
 	}
 	appHash := os.Getenv("TELEGRAM_API_HASH")
 	phone := os.Getenv("TELEGRAM_PHONE")
 
 	sessionDir := os.Getenv("TELEGRAM_SESSION_DIR")
 	if sessionDir == "" {
-		home, _ := os.UserHomeDir()
+		home, err := os.UserHomeDir()
+		if err != nil {
+			startupErr = fmt.Errorf("cannot determine home directory: %w", err)
+			return startupErr
+		}
 		sessionDir = filepath.Join(home, ".telegram-mcp")
 	}
 	if err := os.MkdirAll(sessionDir, 0700); err != nil {

@@ -40,12 +40,12 @@ type createGroupInput struct {
 
 type toggleDialogPinInput struct {
 	Peer   string `json:"peer" jsonschema:"required"`
-	Pinned bool   `json:"pinned"`
+	Pinned *bool  `json:"pinned"`
 }
 
 type markDialogUnreadInput struct {
 	Peer   string `json:"peer" jsonschema:"required"`
-	Unread bool   `json:"unread"`
+	Unread *bool  `json:"unread"`
 }
 
 func RegisterChatTools(s *server.MCPServer) {
@@ -94,6 +94,7 @@ func RegisterChatTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("telegram_leave_chat",
 			mcp.WithDescription("Leave a chat or channel"),
+			mcp.WithReadOnlyHintAnnotation(false),
 			mcp.WithDestructiveHintAnnotation(true),
 			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
 		),
@@ -103,6 +104,7 @@ func RegisterChatTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("telegram_create_group",
 			mcp.WithDescription("Create a new group chat"),
+			mcp.WithReadOnlyHintAnnotation(false),
 			mcp.WithDestructiveHintAnnotation(false),
 			mcp.WithString("title", mcp.Required(), mcp.Description("Group title")),
 			mcp.WithString("users", mcp.Required(), mcp.Description("Comma-separated user IDs or @usernames to invite")),
@@ -113,6 +115,7 @@ func RegisterChatTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("telegram_toggle_dialog_pin",
 			mcp.WithDescription("Pin or unpin a dialog/chat in the chat list"),
+			mcp.WithReadOnlyHintAnnotation(false),
 			mcp.WithDestructiveHintAnnotation(false),
 			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
 			mcp.WithBoolean("pinned", mcp.Description("Whether to pin (true) or unpin (false), default true")),
@@ -123,6 +126,7 @@ func RegisterChatTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("telegram_mark_dialog_unread",
 			mcp.WithDescription("Mark or unmark a dialog/chat as unread"),
+			mcp.WithReadOnlyHintAnnotation(false),
 			mcp.WithDestructiveHintAnnotation(false),
 			mcp.WithString("peer", mcp.Required(), mcp.Description("Chat ID or @username")),
 			mcp.WithBoolean("unread", mcp.Description("Whether to mark as unread (true) or read (false), default true")),
@@ -137,6 +141,9 @@ func handleListChats(_ context.Context, _ mcp.CallToolRequest, input listChatsIn
 	limit := input.Limit
 	if limit <= 0 {
 		limit = 20
+	}
+	if limit > 100 {
+		limit = 100
 	}
 
 	result, err := services.API().MessagesGetDialogs(tgCtx, &tg.MessagesGetDialogsRequest{
@@ -327,6 +334,9 @@ func handleSearchChats(_ context.Context, _ mcp.CallToolRequest, input searchCha
 	if limit <= 0 {
 		limit = 20
 	}
+	if limit > 100 {
+		limit = 100
+	}
 
 	found, err := services.API().ContactsSearch(tgCtx, &tg.ContactsSearchRequest{
 		Q:     input.Query,
@@ -495,16 +505,21 @@ func handleToggleDialogPin(_ context.Context, _ mcp.CallToolRequest, input toggl
 		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
 	}
 
+	pinned := true
+	if input.Pinned != nil {
+		pinned = *input.Pinned
+	}
+
 	_, err = services.API().MessagesToggleDialogPin(tgCtx, &tg.MessagesToggleDialogPinRequest{
 		Peer:   &tg.InputDialogPeer{Peer: peer},
-		Pinned: input.Pinned,
+		Pinned: pinned,
 	})
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("failed to toggle pin: %v", err)), nil
 	}
 
 	action := "pinned"
-	if !input.Pinned {
+	if !pinned {
 		action = "unpinned"
 	}
 	return mcp.NewToolResultText(fmt.Sprintf("Dialog %s successfully.", action)), nil
@@ -518,16 +533,21 @@ func handleMarkDialogUnread(_ context.Context, _ mcp.CallToolRequest, input mark
 		return mcp.NewToolResultError(fmt.Sprintf("failed to resolve peer: %v", err)), nil
 	}
 
+	unread := true
+	if input.Unread != nil {
+		unread = *input.Unread
+	}
+
 	_, err = services.API().MessagesMarkDialogUnread(tgCtx, &tg.MessagesMarkDialogUnreadRequest{
 		Peer:   &tg.InputDialogPeer{Peer: peer},
-		Unread: input.Unread,
+		Unread: unread,
 	})
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("failed to mark dialog unread: %v", err)), nil
 	}
 
 	action := "marked as unread"
-	if !input.Unread {
+	if !unread {
 		action = "marked as read"
 	}
 	return mcp.NewToolResultText(fmt.Sprintf("Dialog %s successfully.", action)), nil

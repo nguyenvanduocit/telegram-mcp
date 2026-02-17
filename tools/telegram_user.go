@@ -23,7 +23,7 @@ type getUserInput struct {
 
 type searchContactsInput struct {
 	Query string `json:"query" jsonschema:"required"`
-	Limit int    `json:"limit,omitempty"`
+	Limit int    `json:"limit"`
 }
 
 func RegisterUserTools(s *server.MCPServer) {
@@ -218,6 +218,9 @@ func handleSearchContacts(_ context.Context, _ mcp.CallToolRequest, input search
 	limit := input.Limit
 	if limit <= 0 {
 		limit = 20
+	}
+	if limit > 100 {
+		limit = 100
 	}
 
 	found, err := services.API().ContactsSearch(tgCtx, &tg.ContactsSearchRequest{

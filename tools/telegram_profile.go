@@ -13,9 +13,9 @@ import (
 )
 
 type updateProfileInput struct {
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	About     string `json:"about"`
+	FirstName string  `json:"first_name"`
+	LastName  *string `json:"last_name"`
+	About     *string `json:"about"`
 }
 
 type getReadParticipantsInput struct {
@@ -51,7 +51,7 @@ func RegisterProfileTools(s *server.MCPServer) {
 func handleUpdateProfile(_ context.Context, _ mcp.CallToolRequest, input updateProfileInput) (*mcp.CallToolResult, error) {
 	tgCtx := services.Context()
 
-	if input.FirstName == "" && input.LastName == "" && input.About == "" {
+	if input.FirstName == "" && input.LastName == nil && input.About == nil {
 		return mcp.NewToolResultError("at least one of first_name, last_name, or about must be provided"), nil
 	}
 
@@ -59,11 +59,11 @@ func handleUpdateProfile(_ context.Context, _ mcp.CallToolRequest, input updateP
 	if input.FirstName != "" {
 		req.SetFirstName(input.FirstName)
 	}
-	if input.LastName != "" {
-		req.SetLastName(input.LastName)
+	if input.LastName != nil {
+		req.SetLastName(*input.LastName)
 	}
-	if input.About != "" {
-		req.SetAbout(input.About)
+	if input.About != nil {
+		req.SetAbout(*input.About)
 	}
 
 	result, err := services.API().AccountUpdateProfile(tgCtx, req)

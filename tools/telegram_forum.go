@@ -100,8 +100,8 @@ func handleCreateForumTopic(_ context.Context, _ mcp.CallToolRequest, input crea
 	switch u := result.(type) {
 	case *tg.Updates:
 		for _, update := range u.Updates {
-			if mt, ok := update.(*tg.UpdateMessageID); ok {
-				topicID = mt.ID
+			if msg, ok := update.(*tg.UpdateNewChannelMessage); ok {
+				topicID = msg.GetMessage().GetID()
 				break
 			}
 		}
@@ -125,6 +125,9 @@ func handleGetForumTopics(_ context.Context, _ mcp.CallToolRequest, input getFor
 	limit := input.Limit
 	if limit <= 0 {
 		limit = 20
+	}
+	if limit > 100 {
+		limit = 100
 	}
 
 	result, err := services.API().MessagesGetForumTopics(tgCtx, &tg.MessagesGetForumTopicsRequest{
