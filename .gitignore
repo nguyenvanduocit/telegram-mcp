@@ -1,0 +1,16 @@
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+go.work.sum
+.env
+session/
+downloads/
+*.pebble.db/
+telegram-mcp
+.idea/
+docs/
