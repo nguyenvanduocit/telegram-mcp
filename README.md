@@ -44,10 +44,10 @@ telegram-mcp --env .env
 
 ```bash
 # stdio mode (for MCP clients like Claude Code)
-telegram-mcp
+telegram-mcp --env .env
 
 # HTTP mode
-telegram-mcp --http_port 3002
+telegram-mcp --env .env --http_port 3002
 ```
 
 ### 4. Authenticate
