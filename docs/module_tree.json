@@ -1,0 +1,97 @@
+{
+    "services": {
+        "components": [
+            "services.telegram.StartTelegram",
+            "services.telegram.API",
+            "services.telegram.Context",
+            "services.telegram.ResolvePeer",
+            "services.telegram.ResolveUsername",
+            "services.telegram.GetInputPeerByID",
+            "services.telegram.Self",
+            "services.telegram.ReadyCh",
+            "services.telegram.PeerStorage",
+            "services.telegram.Resolver",
+            "services.telegram.terminalAuth",
+            "services.telegram.terminalAuth.Phone",
+            "services.telegram.terminalAuth.Code",
+            "services.telegram.terminalAuth.Password",
+            "services.telegram.terminalAuth.SignUp",
+            "services.telegram.terminalAuth.AcceptTermsOfService"
+        ],
+        "children": {}
+    },
+    "tools_chat": {
+        "components": [
+            "tools.telegram_chat.RegisterChatTools",
+            "tools.telegram_chat.handleListChats",
+            "tools.telegram_chat.handleGetChat",
+            "tools.telegram_chat.handleSearchChats",
+            "tools.telegram_chat.handleJoinChat",
+            "tools.telegram_chat.handleLeaveChat",
+            "tools.telegram_chat.handleCreateGroup",
+            "tools.telegram_chat.listChatsInput",
+            "tools.telegram_chat.getChatInput",
+            "tools.telegram_chat.searchChatsInput",
+            "tools.telegram_chat.joinChatInput",
+            "tools.telegram_chat.leaveChatInput",
+            "tools.telegram_chat.createGroupInput"
+        ],
+        "children": {}
+    },
+    "tools_media": {
+        "components": [
+            "tools.telegram_media.RegisterMediaTools",
+            "tools.telegram_media.handleDownloadMedia",
+            "tools.telegram_media.handleSendMedia",
+            "tools.telegram_media.handleGetFileInfo",
+            "tools.telegram_media.downloadMediaInput",
+            "tools.telegram_media.sendMediaInput",
+            "tools.telegram_media.getFileInfoInput",
+            "tools.telegram_media.getMessageByID",
+            "tools.telegram_media.mimeFromPath",
+            "tools.telegram_media.formatSize"
+        ],
+        "children": {}
+    },
+    "tools_message": {
+        "components": [
+            "tools.telegram_message.RegisterMessageTools",
+            "tools.telegram_message.handleSendMessage",
+            "tools.telegram_message.handleGetHistory",
+            "tools.telegram_message.handleSearchMessages",
+            "tools.telegram_message.handleForwardMessage",
+            "tools.telegram_message.handleDeleteMessage",
+            "tools.telegram_message.handleEditMessage",
+            "tools.telegram_message.handlePinMessage",
+            "tools.telegram_message.SendMessageInput",
+            "tools.telegram_message.GetHistoryInput",
+            "tools.telegram_message.SearchMessagesInput",
+            "tools.telegram_message.ForwardMessageInput",
+            "tools.telegram_message.DeleteMessageInput",
+            "tools.telegram_message.EditMessageInput",
+            "tools.telegram_message.PinMessageInput",
+            "tools.telegram_message.randomID",
+            "tools.telegram_message.formatMessages",
+            "tools.telegram_message.extractMessages",
+            "tools.telegram_message.parseMessageIDs"
+        ],
+        "children": {}
+    },
+    "tools_user": {
+        "components": [
+            "tools.telegram_user.RegisterUserTools",
+            "tools.telegram_user.handleGetMe",
+            "tools.telegram_user.handleResolveUsername",
+            "tools.telegram_user.handleGetUser",
+            "tools.telegram_user.handleSearchContacts",
+            "tools.telegram_user.getMeInput",
+            "tools.telegram_user.resolveUsernameInput",
+            "tools.telegram_user.getUserInput",
+            "tools.telegram_user.searchContactsInput",
+            "tools.telegram_user.formatUser",
+            "tools.telegram_user.formatChat",
+            "tools.telegram_user.toInputUser"
+        ],
+        "children": {}
+    }
+}

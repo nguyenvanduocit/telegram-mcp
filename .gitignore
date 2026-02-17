@@ -13,4 +13,6 @@ downloads/
 *.pebble.db/
 telegram-mcp
 .idea/
-docs/
+docs/.codewiki_cache/
+docs/.idea/
+docs/temp/

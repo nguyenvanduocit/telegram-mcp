@@ -1,0 +1,36 @@
+{
+    "generation_info": {
+        "timestamp": "2026-02-16T17:05:25.066523",
+        "main_model": "glm-5",
+        "generator_version": "1.1.0",
+        "repo_path": "/Users/firegroup/projects/telegram-cli",
+        "commit_id": null,
+        "completed_at": "2026-02-16T23:40:01.010434"
+    },
+    "statistics": {
+        "total_components": 82,
+        "leaf_nodes": 82,
+        "max_depth": 5
+    },
+    "pipeline_state": {
+        "stages_completed": [
+            "dependency_analysis",
+            "module_clustering",
+            "documentation_generation"
+        ],
+        "modules": {}
+    },
+    "files_generated": [
+        "codebase_map.json",
+        "graph.html",
+        "initial_module_tree.json",
+        "metadata.json",
+        "module_tree.json",
+        "overview.md",
+        "services.md",
+        "tools_chat.md",
+        "tools_media.md",
+        "tools_message.md",
+        "tools_user.md"
+    ]
+}

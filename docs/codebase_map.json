@@ -1,0 +1,5766 @@
+{
+    "version": "1.0",
+    "metadata": {
+        "project_name": "telegram-cli",
+        "generated_at": "2026-02-16T17:05:25.068519",
+        "commit_sha": null,
+        "languages": [
+            "go"
+        ],
+        "total_components": 82
+    },
+    "nodes": [
+        {
+            "id": "main.main",
+            "name": "main",
+            "type": "function",
+            "file_path": "main.go",
+            "metrics": {
+                "pagerank": 0.000103,
+                "fan_in": 0,
+                "fan_out": 7,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 61.9,
+                "tfidf_keywords": [
+                    [
+                        "server",
+                        0.426
+                    ],
+                    [
+                        "env",
+                        0.3985
+                    ],
+                    [
+                        "println",
+                        0.2981
+                    ],
+                    [
+                        "http",
+                        0.2898
+                    ],
+                    [
+                        "err",
+                        0.2246
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 12,
+                "cognitive_complexity": 46,
+                "nloc": 57,
+                "maintainability_index": 43.5
+            },
+            "community_id": 0,
+            "depends_on": [
+                "tools.telegram_user.RegisterUserTools",
+                "tools.telegram_media.RegisterMediaTools",
+                "main.isContextCanceled",
+                "services.telegram.ReadyCh",
+                "tools.telegram_message.RegisterMessageTools",
+                "services.telegram.StartTelegram",
+                "tools.telegram_chat.RegisterChatTools"
+            ],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": true,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": true,
+                "has_panic": false,
+                "is_exported": false
+            }
+        },
+        {
+            "id": "main.isContextCanceled",
+            "name": "isContextCanceled",
+            "type": "function",
+            "file_path": "main.go",
+            "metrics": {
+                "pagerank": 0.010289,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 19.7,
+                "tfidf_keywords": [
+                    [
+                        "canceled",
+                        0.59
+                    ],
+                    [
+                        "err",
+                        0.4668
+                    ],
+                    [
+                        "msg",
+                        0.33
+                    ],
+                    [
+                        "contains",
+                        0.3227
+                    ],
+                    [
+                        "strings",
+                        0.2384
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 4,
+                "cognitive_complexity": 5,
+                "nloc": 11,
+                "maintainability_index": 58.77
+            },
+            "community_id": 0,
+            "depends_on": []
+        },
+        {
+            "id": "services.telegram.ReadyCh",
+            "name": "ReadyCh",
+            "type": "function",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.00104,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 2.5,
+                "tfidf_keywords": [
+                    [
+                        "ready",
+                        0.7035
+                    ],
+                    [
+                        "chan",
+                        0.516
+                    ],
+                    [
+                        "ch",
+                        0.396
+                    ],
+                    [
+                        "struct",
+                        0.2493
+                    ],
+                    [
+                        "func",
+                        0.141
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 0,
+                "nloc": 1,
+                "maintainability_index": 89.21
+            },
+            "community_id": 0,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.API",
+            "name": "API",
+            "type": "function",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.060833,
+                "fan_in": 21,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": true,
+                "complexity_score": 7.67,
+                "tfidf_keywords": [
+                    [
+                        "client",
+                        0.6493
+                    ],
+                    [
+                        "ready",
+                        0.5187
+                    ],
+                    [
+                        "telegram",
+                        0.4163
+                    ],
+                    [
+                        "tg",
+                        0.3047
+                    ],
+                    [
+                        "func",
+                        0.208
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 0,
+                "nloc": 4,
+                "maintainability_index": 74.35
+            },
+            "community_id": 3,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.PeerStorage",
+            "name": "PeerStorage",
+            "type": "function",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 7.67,
+                "tfidf_keywords": [
+                    [
+                        "storage",
+                        0.7309
+                    ],
+                    [
+                        "peer",
+                        0.428
+                    ],
+                    [
+                        "pebble",
+                        0.4145
+                    ],
+                    [
+                        "ready",
+                        0.3091
+                    ],
+                    [
+                        "func",
+                        0.1239
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 0,
+                "nloc": 4,
+                "maintainability_index": 74.35
+            },
+            "community_id": 4,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.Resolver",
+            "name": "Resolver",
+            "type": "function",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.001028,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 7.67,
+                "tfidf_keywords": [
+                    [
+                        "resolver",
+                        0.869
+                    ],
+                    [
+                        "cache",
+                        0.3103
+                    ],
+                    [
+                        "storage",
+                        0.2736
+                    ],
+                    [
+                        "ready",
+                        0.2314
+                    ],
+                    [
+                        "peer",
+                        0.1068
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 0,
+                "nloc": 4,
+                "maintainability_index": 74.35
+            },
+            "community_id": 5,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.Self",
+            "name": "Self",
+            "type": "function",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.011027,
+                "fan_in": 3,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": true,
+                "complexity_score": 7.67,
+                "tfidf_keywords": [
+                    [
+                        "user",
+                        0.7685
+                    ],
+                    [
+                        "ready",
+                        0.5214
+                    ],
+                    [
+                        "tg",
+                        0.3063
+                    ],
+                    [
+                        "func",
+                        0.2091
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 0,
+                "nloc": 4,
+                "maintainability_index": 74.35
+            },
+            "community_id": 3,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.Context",
+            "name": "Context",
+            "type": "function",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.040045,
+                "fan_in": 16,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": true,
+                "complexity_score": 22.99,
+                "tfidf_keywords": [
+                    [
+                        "context",
+                        0.7633
+                    ],
+                    [
+                        "ready",
+                        0.4331
+                    ],
+                    [
+                        "telegram",
+                        0.3476
+                    ],
+                    [
+                        "ctx",
+                        0.2805
+                    ],
+                    [
+                        "func",
+                        0.1737
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 5,
+                "cognitive_complexity": 0,
+                "nloc": 35,
+                "maintainability_index": 42.32
+            },
+            "community_id": 6,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.terminalAuth",
+            "name": "terminalAuth",
+            "type": "struct",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 1.37,
+                "tfidf_keywords": [
+                    [
+                        "phone",
+                        0.5687
+                    ],
+                    [
+                        "terminal",
+                        0.5236
+                    ],
+                    [
+                        "auth",
+                        0.5236
+                    ],
+                    [
+                        "struct",
+                        0.358
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 0,
+                "nloc": 0,
+                "maintainability_index": 89.46
+            },
+            "community_id": 7,
+            "depends_on": []
+        },
+        {
+            "id": "services.telegram.terminalAuth.Phone",
+            "name": "Phone",
+            "type": "method",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.001028,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 8.43,
+                "tfidf_keywords": [
+                    [
+                        "phone",
+                        0.8015
+                    ],
+                    [
+                        "err",
+                        0.2158
+                    ],
+                    [
+                        "nil",
+                        0.2059
+                    ],
+                    [
+                        "international",
+                        0.174
+                    ],
+                    [
+                        "bufio",
+                        0.1591
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 4,
+                "nloc": 0,
+                "maintainability_index": 77.15
+            },
+            "community_id": 8,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.terminalAuth.Code",
+            "name": "Code",
+            "type": "method",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.001028,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 5.3,
+                "tfidf_keywords": [
+                    [
+                        "code",
+                        0.7964
+                    ],
+                    [
+                        "auth",
+                        0.2462
+                    ],
+                    [
+                        "err",
+                        0.216
+                    ],
+                    [
+                        "reader",
+                        0.1593
+                    ],
+                    [
+                        "bufio",
+                        0.1593
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 1,
+                "nloc": 0,
+                "maintainability_index": 80.17
+            },
+            "community_id": 9,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.terminalAuth.Password",
+            "name": "Password",
+            "type": "method",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.001028,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 5.69,
+                "tfidf_keywords": [
+                    [
+                        "password",
+                        0.576
+                    ],
+                    [
+                        "pwd",
+                        0.384
+                    ],
+                    [
+                        "byte",
+                        0.351
+                    ],
+                    [
+                        "err",
+                        0.2381
+                    ],
+                    [
+                        "syscall",
+                        0.192
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 1,
+                "nloc": 0,
+                "maintainability_index": 79.05
+            },
+            "community_id": 10,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.terminalAuth.SignUp",
+            "name": "SignUp",
+            "type": "method",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.001028,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 1.37,
+                "tfidf_keywords": [
+                    [
+                        "auth",
+                        0.5376
+                    ],
+                    [
+                        "up",
+                        0.4636
+                    ],
+                    [
+                        "info",
+                        0.3344
+                    ],
+                    [
+                        "user",
+                        0.2548
+                    ],
+                    [
+                        "supported",
+                        0.2536
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 0,
+                "nloc": 0,
+                "maintainability_index": 89.46
+            },
+            "community_id": 11,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.terminalAuth.AcceptTermsOfService",
+            "name": "AcceptTermsOfService",
+            "type": "method",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 1.37,
+                "tfidf_keywords": [
+                    [
+                        "service",
+                        0.522
+                    ],
+                    [
+                        "terms",
+                        0.522
+                    ],
+                    [
+                        "tos",
+                        0.348
+                    ],
+                    [
+                        "of",
+                        0.3337
+                    ],
+                    [
+                        "auth",
+                        0.2459
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 0,
+                "nloc": 0,
+                "maintainability_index": 89.46
+            },
+            "community_id": 12,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": true,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.StartTelegram",
+            "name": "StartTelegram",
+            "type": "function",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.010289,
+                "fan_in": 1,
+                "fan_out": 2,
+                "instability": 0.6667,
+                "is_hub": false,
+                "complexity_score": 23.66,
+                "tfidf_keywords": [
+                    [
+                        "session",
+                        0.4857
+                    ],
+                    [
+                        "err",
+                        0.2677
+                    ],
+                    [
+                        "dir",
+                        0.261
+                    ],
+                    [
+                        "storage",
+                        0.2284
+                    ],
+                    [
+                        "ctx",
+                        0.2145
+                    ]
+                ],
+                "betweenness_centrality": 0.000309,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 18,
+                "nloc": 0,
+                "maintainability_index": 61.4
+            },
+            "community_id": 3,
+            "depends_on": [
+                "services.telegram.Self",
+                "services.telegram.API"
+            ],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": true,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.GetInputPeerByID",
+            "name": "GetInputPeerByID",
+            "type": "function",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.029371,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": true,
+                "complexity_score": 0.0,
+                "tfidf_keywords": [
+                    [
+                        "peer",
+                        0.4228
+                    ],
+                    [
+                        "chat",
+                        0.4024
+                    ],
+                    [
+                        "user",
+                        0.3375
+                    ],
+                    [
+                        "input",
+                        0.3014
+                    ],
+                    [
+                        "nil",
+                        0.2649
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 1,
+                "nloc": 0,
+                "maintainability_index": 95.39
+            },
+            "community_id": 13,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.ResolveUsername",
+            "name": "ResolveUsername",
+            "type": "function",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.029371,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": true,
+                "complexity_score": 5.3,
+                "tfidf_keywords": [
+                    [
+                        "username",
+                        0.6458
+                    ],
+                    [
+                        "resolve",
+                        0.3421
+                    ],
+                    [
+                        "err",
+                        0.2814
+                    ],
+                    [
+                        "nil",
+                        0.2685
+                    ],
+                    [
+                        "domain",
+                        0.227
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 1,
+                "nloc": 0,
+                "maintainability_index": 80.17
+            },
+            "community_id": 13,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "services.telegram.ResolvePeer",
+            "name": "ResolvePeer",
+            "type": "function",
+            "file_path": "services/telegram.go",
+            "metrics": {
+                "pagerank": 0.044926,
+                "fan_in": 15,
+                "fan_out": 2,
+                "instability": 0.1176,
+                "is_hub": true,
+                "complexity_score": 8.12,
+                "tfidf_keywords": [
+                    [
+                        "identifier",
+                        0.7762
+                    ],
+                    [
+                        "ctx",
+                        0.2999
+                    ],
+                    [
+                        "resolve",
+                        0.256
+                    ],
+                    [
+                        "id",
+                        0.1741
+                    ],
+                    [
+                        "username",
+                        0.161
+                    ]
+                ],
+                "betweenness_centrality": 0.00463,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 4,
+                "nloc": 0,
+                "maintainability_index": 78.05
+            },
+            "community_id": 13,
+            "depends_on": [
+                "services.telegram.GetInputPeerByID",
+                "services.telegram.ResolveUsername"
+            ],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_media.downloadMediaInput",
+            "name": "downloadMediaInput",
+            "type": "struct",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 40.65,
+                "tfidf_keywords": [
+                    [
+                        "download",
+                        0.6247
+                    ],
+                    [
+                        "dir",
+                        0.4165
+                    ],
+                    [
+                        "json",
+                        0.3894
+                    ],
+                    [
+                        "jsonschema",
+                        0.3208
+                    ],
+                    [
+                        "message",
+                        0.217
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 18,
+                "cognitive_complexity": 0,
+                "nloc": 75,
+                "maintainability_index": 30.55
+            },
+            "community_id": 14,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_media.sendMediaInput",
+            "name": "sendMediaInput",
+            "type": "struct",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 22.78,
+                "tfidf_keywords": [
+                    [
+                        "caption",
+                        0.4836
+                    ],
+                    [
+                        "json",
+                        0.4271
+                    ],
+                    [
+                        "path",
+                        0.4005
+                    ],
+                    [
+                        "file",
+                        0.3518
+                    ],
+                    [
+                        "jsonschema",
+                        0.3518
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 5,
+                "cognitive_complexity": 0,
+                "nloc": 32,
+                "maintainability_index": 42.91
+            },
+            "community_id": 15,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_media.getFileInfoInput",
+            "name": "getFileInfoInput",
+            "type": "struct",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 30.02,
+                "tfidf_keywords": [
+                    [
+                        "jsonschema",
+                        0.5207
+                    ],
+                    [
+                        "json",
+                        0.4214
+                    ],
+                    [
+                        "message",
+                        0.3523
+                    ],
+                    [
+                        "required",
+                        0.3257
+                    ],
+                    [
+                        "info",
+                        0.2765
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 11,
+                "cognitive_complexity": 0,
+                "nloc": 37,
+                "maintainability_index": 40.1
+            },
+            "community_id": 16,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_media.RegisterMediaTools",
+            "name": "RegisterMediaTools",
+            "type": "function",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.010289,
+                "fan_in": 1,
+                "fan_out": 3,
+                "instability": 0.75,
+                "is_hub": true,
+                "complexity_score": 9.01,
+                "tfidf_keywords": [
+                    [
+                        "register",
+                        0.6331
+                    ],
+                    [
+                        "media",
+                        0.542
+                    ],
+                    [
+                        "server",
+                        0.3165
+                    ],
+                    [
+                        "download",
+                        0.2278
+                    ],
+                    [
+                        "tools",
+                        0.2169
+                    ]
+                ],
+                "betweenness_centrality": 0.000463,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 0,
+                "nloc": 5,
+                "maintainability_index": 70.49
+            },
+            "community_id": 0,
+            "depends_on": [
+                "tools.telegram_media.registerGetFileInfo",
+                "tools.telegram_media.registerSendMedia",
+                "tools.telegram_media.registerDownloadMedia"
+            ],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_media.getMessageByID",
+            "name": "getMessageByID",
+            "type": "function",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.014644,
+                "fan_in": 2,
+                "fan_out": 2,
+                "instability": 0.5,
+                "is_hub": true,
+                "complexity_score": 31.02,
+                "tfidf_keywords": [
+                    [
+                        "msg",
+                        0.3712
+                    ],
+                    [
+                        "message",
+                        0.3431
+                    ],
+                    [
+                        "tg",
+                        0.3271
+                    ],
+                    [
+                        "messages",
+                        0.307
+                    ],
+                    [
+                        "channel",
+                        0.2817
+                    ]
+                ],
+                "betweenness_centrality": 0.000463,
+                "cyclomatic_complexity": 5,
+                "cognitive_complexity": 13,
+                "nloc": 28,
+                "maintainability_index": 45.25
+            },
+            "community_id": 21,
+            "depends_on": [
+                "tools.telegram_message.extractMessages",
+                "services.telegram.API"
+            ]
+        },
+        {
+            "id": "tools.telegram_media.mimeFromPath",
+            "name": "mimeFromPath",
+            "type": "function",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.012024,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 51.55,
+                "tfidf_keywords": [
+                    [
+                        "image",
+                        0.3895
+                    ],
+                    [
+                        "application",
+                        0.3196
+                    ],
+                    [
+                        "ext",
+                        0.3196
+                    ],
+                    [
+                        "path",
+                        0.2258
+                    ],
+                    [
+                        "zip",
+                        0.213
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 12,
+                "cognitive_complexity": 33,
+                "nloc": 29,
+                "maintainability_index": 47.24
+            },
+            "community_id": 20,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_media.registerDownloadMedia",
+            "name": "registerDownloadMedia",
+            "type": "function",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.013192,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 13.52,
+                "tfidf_keywords": [
+                    [
+                        "mcp",
+                        0.5198
+                    ],
+                    [
+                        "download",
+                        0.483
+                    ],
+                    [
+                        "media",
+                        0.383
+                    ],
+                    [
+                        "description",
+                        0.282
+                    ],
+                    [
+                        "tool",
+                        0.2437
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 1,
+                "nloc": 9,
+                "maintainability_index": 59.52
+            },
+            "community_id": 0,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_media.handleDownloadMedia",
+            "name": "handleDownloadMedia",
+            "type": "function",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 4,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 52.97,
+                "tfidf_keywords": [
+                    [
+                        "photo",
+                        0.4312
+                    ],
+                    [
+                        "download",
+                        0.3327
+                    ],
+                    [
+                        "file",
+                        0.2379
+                    ],
+                    [
+                        "media",
+                        0.2261
+                    ],
+                    [
+                        "nil",
+                        0.2093
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 63,
+                "nloc": 0,
+                "maintainability_index": 67.16
+            },
+            "community_id": 21,
+            "depends_on": [
+                "services.telegram.Context",
+                "services.telegram.API",
+                "tools.telegram_media.getMessageByID",
+                "services.telegram.ResolvePeer"
+            ]
+        },
+        {
+            "id": "tools.telegram_media.registerSendMedia",
+            "name": "registerSendMedia",
+            "type": "function",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.013192,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 14.22,
+                "tfidf_keywords": [
+                    [
+                        "mcp",
+                        0.5275
+                    ],
+                    [
+                        "send",
+                        0.401
+                    ],
+                    [
+                        "media",
+                        0.3887
+                    ],
+                    [
+                        "description",
+                        0.2861
+                    ],
+                    [
+                        "tool",
+                        0.2474
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 2,
+                "nloc": 9,
+                "maintainability_index": 59.52
+            },
+            "community_id": 0,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_media.handleSendMedia",
+            "name": "handleSendMedia",
+            "type": "function",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 5,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 16.13,
+                "tfidf_keywords": [
+                    [
+                        "file",
+                        0.3445
+                    ],
+                    [
+                        "media",
+                        0.3153
+                    ],
+                    [
+                        "err",
+                        0.3057
+                    ],
+                    [
+                        "path",
+                        0.3049
+                    ],
+                    [
+                        "nil",
+                        0.2188
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 10,
+                "nloc": 0,
+                "maintainability_index": 67.03
+            },
+            "community_id": 20,
+            "depends_on": [
+                "tools.telegram_message.randomID",
+                "services.telegram.API",
+                "services.telegram.ResolvePeer",
+                "tools.telegram_media.mimeFromPath",
+                "services.telegram.Context"
+            ]
+        },
+        {
+            "id": "tools.telegram_media.registerGetFileInfo",
+            "name": "registerGetFileInfo",
+            "type": "function",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.013192,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 13.87,
+                "tfidf_keywords": [
+                    [
+                        "mcp",
+                        0.5895
+                    ],
+                    [
+                        "tool",
+                        0.2764
+                    ],
+                    [
+                        "info",
+                        0.2689
+                    ],
+                    [
+                        "file",
+                        0.2531
+                    ],
+                    [
+                        "description",
+                        0.2398
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 1,
+                "nloc": 10,
+                "maintainability_index": 58.52
+            },
+            "community_id": 0,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_media.handleGetFileInfo",
+            "name": "handleGetFileInfo",
+            "type": "function",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 4,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 82.96,
+                "tfidf_keywords": [
+                    [
+                        "photo",
+                        0.3997
+                    ],
+                    [
+                        "fprintf",
+                        0.3759
+                    ],
+                    [
+                        "size",
+                        0.3444
+                    ],
+                    [
+                        "document",
+                        0.3444
+                    ],
+                    [
+                        "fmt",
+                        0.2736
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 102,
+                "nloc": 0,
+                "maintainability_index": 58.96
+            },
+            "community_id": 21,
+            "depends_on": [
+                "services.telegram.Context",
+                "tools.telegram_media.formatSize",
+                "tools.telegram_media.getMessageByID",
+                "services.telegram.ResolvePeer"
+            ]
+        },
+        {
+            "id": "tools.telegram_media.formatSize",
+            "name": "formatSize",
+            "type": "function",
+            "file_path": "tools/telegram_media.go",
+            "metrics": {
+                "pagerank": 0.01246,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 23.54,
+                "tfidf_keywords": [
+                    [
+                        "bytes",
+                        0.8013
+                    ],
+                    [
+                        "strconv",
+                        0.3533
+                    ],
+                    [
+                        "format",
+                        0.3308
+                    ],
+                    [
+                        "float64",
+                        0.3287
+                    ],
+                    [
+                        "size",
+                        0.0935
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 4,
+                "cognitive_complexity": 9,
+                "nloc": 12,
+                "maintainability_index": 55.74
+            },
+            "community_id": 21,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_chat.listChatsInput",
+            "name": "listChatsInput",
+            "type": "struct",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 24.37,
+                "tfidf_keywords": [
+                    [
+                        "offset",
+                        0.6278
+                    ],
+                    [
+                        "limit",
+                        0.49
+                    ],
+                    [
+                        "json",
+                        0.4292
+                    ],
+                    [
+                        "chats",
+                        0.2652
+                    ],
+                    [
+                        "id",
+                        0.219
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 7,
+                "cognitive_complexity": 0,
+                "nloc": 30,
+                "maintainability_index": 44.35
+            },
+            "community_id": 22,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_chat.getChatInput",
+            "name": "getChatInput",
+            "type": "struct",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 33.97,
+                "tfidf_keywords": [
+                    [
+                        "peer",
+                        0.478
+                    ],
+                    [
+                        "jsonschema",
+                        0.4716
+                    ],
+                    [
+                        "json",
+                        0.3816
+                    ],
+                    [
+                        "struct",
+                        0.367
+                    ],
+                    [
+                        "chat",
+                        0.3412
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 14,
+                "cognitive_complexity": 0,
+                "nloc": 45,
+                "maintainability_index": 37.75
+            },
+            "community_id": 23,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_chat.searchChatsInput",
+            "name": "searchChatsInput",
+            "type": "struct",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 28.76,
+                "tfidf_keywords": [
+                    [
+                        "query",
+                        0.5504
+                    ],
+                    [
+                        "limit",
+                        0.4788
+                    ],
+                    [
+                        "json",
+                        0.4193
+                    ],
+                    [
+                        "search",
+                        0.2668
+                    ],
+                    [
+                        "chats",
+                        0.2591
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 10,
+                "cognitive_complexity": 0,
+                "nloc": 38,
+                "maintainability_index": 40.72
+            },
+            "community_id": 24,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_chat.joinChatInput",
+            "name": "joinChatInput",
+            "type": "struct",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 26.5,
+                "tfidf_keywords": [
+                    [
+                        "join",
+                        0.5036
+                    ],
+                    [
+                        "peer",
+                        0.413
+                    ],
+                    [
+                        "jsonschema",
+                        0.4074
+                    ],
+                    [
+                        "json",
+                        0.3297
+                    ],
+                    [
+                        "struct",
+                        0.3171
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 8,
+                "cognitive_complexity": 0,
+                "nloc": 36,
+                "maintainability_index": 41.24
+            },
+            "community_id": 25,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_chat.leaveChatInput",
+            "name": "leaveChatInput",
+            "type": "struct",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 22.84,
+                "tfidf_keywords": [
+                    [
+                        "leave",
+                        0.5439
+                    ],
+                    [
+                        "peer",
+                        0.4011
+                    ],
+                    [
+                        "jsonschema",
+                        0.3957
+                    ],
+                    [
+                        "json",
+                        0.3202
+                    ],
+                    [
+                        "struct",
+                        0.308
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 6,
+                "cognitive_complexity": 0,
+                "nloc": 26,
+                "maintainability_index": 45.74
+            },
+            "community_id": 26,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_chat.createGroupInput",
+            "name": "createGroupInput",
+            "type": "struct",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 25.04,
+                "tfidf_keywords": [
+                    [
+                        "title",
+                        0.4917
+                    ],
+                    [
+                        "users",
+                        0.4448
+                    ],
+                    [
+                        "jsonschema",
+                        0.432
+                    ],
+                    [
+                        "json",
+                        0.3496
+                    ],
+                    [
+                        "required",
+                        0.2702
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 7,
+                "cognitive_complexity": 0,
+                "nloc": 34,
+                "maintainability_index": 42.42
+            },
+            "community_id": 27,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_chat.RegisterChatTools",
+            "name": "RegisterChatTools",
+            "type": "function",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010289,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 31.11,
+                "tfidf_keywords": [
+                    [
+                        "mcp",
+                        0.6701
+                    ],
+                    [
+                        "description",
+                        0.294
+                    ],
+                    [
+                        "annotation",
+                        0.2559
+                    ],
+                    [
+                        "hint",
+                        0.2559
+                    ],
+                    [
+                        "tool",
+                        0.244
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 15,
+                "nloc": 56,
+                "maintainability_index": 36.97
+            },
+            "community_id": 0,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_chat.handleListChats",
+            "name": "handleListChats",
+            "type": "function",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 2,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 100.0,
+                "tfidf_keywords": [
+                    [
+                        "user",
+                        0.3774
+                    ],
+                    [
+                        "map",
+                        0.3756
+                    ],
+                    [
+                        "ok",
+                        0.3447
+                    ],
+                    [
+                        "chat",
+                        0.3206
+                    ],
+                    [
+                        "dialogs",
+                        0.309
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 128,
+                "nloc": 0,
+                "maintainability_index": 61.99
+            },
+            "community_id": 6,
+            "depends_on": [
+                "services.telegram.Context",
+                "services.telegram.API"
+            ]
+        },
+        {
+            "id": "tools.telegram_chat.handleGetChat",
+            "name": "handleGetChat",
+            "type": "function",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 3,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 88.0,
+                "tfidf_keywords": [
+                    [
+                        "full",
+                        0.6084
+                    ],
+                    [
+                        "channel",
+                        0.2656
+                    ],
+                    [
+                        "fprintf",
+                        0.2656
+                    ],
+                    [
+                        "chat",
+                        0.2563
+                    ],
+                    [
+                        "ch",
+                        0.2189
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 112,
+                "nloc": 0,
+                "maintainability_index": 64.49
+            },
+            "community_id": 6,
+            "depends_on": [
+                "services.telegram.Context",
+                "services.telegram.API",
+                "services.telegram.ResolvePeer"
+            ]
+        },
+        {
+            "id": "tools.telegram_chat.handleSearchChats",
+            "name": "handleSearchChats",
+            "type": "function",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 4,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 31.31,
+                "tfidf_keywords": [
+                    [
+                        "found",
+                        0.5966
+                    ],
+                    [
+                        "chats",
+                        0.3378
+                    ],
+                    [
+                        "search",
+                        0.2981
+                    ],
+                    [
+                        "limit",
+                        0.2675
+                    ],
+                    [
+                        "users",
+                        0.2485
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 31,
+                "nloc": 0,
+                "maintainability_index": 65.4
+            },
+            "community_id": 28,
+            "depends_on": [
+                "services.telegram.Context",
+                "tools.telegram_user.formatUser",
+                "services.telegram.API",
+                "tools.telegram_user.formatChat"
+            ]
+        },
+        {
+            "id": "tools.telegram_chat.handleJoinChat",
+            "name": "handleJoinChat",
+            "type": "function",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 3,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 23.59,
+                "tfidf_keywords": [
+                    [
+                        "channel",
+                        0.3661
+                    ],
+                    [
+                        "invite",
+                        0.3144
+                    ],
+                    [
+                        "join",
+                        0.264
+                    ],
+                    [
+                        "peer",
+                        0.2474
+                    ],
+                    [
+                        "err",
+                        0.2437
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 25,
+                "nloc": 0,
+                "maintainability_index": 75.58
+            },
+            "community_id": 6,
+            "depends_on": [
+                "services.telegram.Context",
+                "services.telegram.API",
+                "services.telegram.ResolvePeer"
+            ]
+        },
+        {
+            "id": "tools.telegram_chat.handleLeaveChat",
+            "name": "handleLeaveChat",
+            "type": "function",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 4,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 19.17,
+                "tfidf_keywords": [
+                    [
+                        "leave",
+                        0.3959
+                    ],
+                    [
+                        "chat",
+                        0.3126
+                    ],
+                    [
+                        "channel",
+                        0.288
+                    ],
+                    [
+                        "err",
+                        0.2876
+                    ],
+                    [
+                        "tg",
+                        0.2477
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 15,
+                "nloc": 0,
+                "maintainability_index": 68.3
+            },
+            "community_id": 3,
+            "depends_on": [
+                "services.telegram.Context",
+                "services.telegram.API",
+                "services.telegram.Self",
+                "services.telegram.ResolvePeer"
+            ]
+        },
+        {
+            "id": "tools.telegram_chat.handleCreateGroup",
+            "name": "handleCreateGroup",
+            "type": "function",
+            "file_path": "tools/telegram_chat.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 3,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 23.29,
+                "tfidf_keywords": [
+                    [
+                        "part",
+                        0.4527
+                    ],
+                    [
+                        "users",
+                        0.3307
+                    ],
+                    [
+                        "user",
+                        0.3249
+                    ],
+                    [
+                        "input",
+                        0.2829
+                    ],
+                    [
+                        "create",
+                        0.2482
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 20,
+                "nloc": 0,
+                "maintainability_index": 66.46
+            },
+            "community_id": 6,
+            "depends_on": [
+                "services.telegram.Context",
+                "services.telegram.API",
+                "services.telegram.ResolvePeer"
+            ]
+        },
+        {
+            "id": "tools.telegram_user.getMeInput",
+            "name": "getMeInput",
+            "type": "struct",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 25.75,
+                "tfidf_keywords": [
+                    [
+                        "me",
+                        0.7934
+                    ],
+                    [
+                        "struct",
+                        0.4995
+                    ],
+                    [
+                        "input",
+                        0.3479
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 8,
+                "cognitive_complexity": 0,
+                "nloc": 31,
+                "maintainability_index": 43.38
+            },
+            "community_id": 29,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_user.resolveUsernameInput",
+            "name": "resolveUsernameInput",
+            "type": "struct",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 21.95,
+                "tfidf_keywords": [
+                    [
+                        "username",
+                        0.7702
+                    ],
+                    [
+                        "jsonschema",
+                        0.3361
+                    ],
+                    [
+                        "resolve",
+                        0.272
+                    ],
+                    [
+                        "json",
+                        0.272
+                    ],
+                    [
+                        "struct",
+                        0.2616
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 6,
+                "cognitive_complexity": 0,
+                "nloc": 21,
+                "maintainability_index": 48.32
+            },
+            "community_id": 30,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_user.getUserInput",
+            "name": "getUserInput",
+            "type": "struct",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 25.8,
+                "tfidf_keywords": [
+                    [
+                        "user",
+                        0.7868
+                    ],
+                    [
+                        "jsonschema",
+                        0.3241
+                    ],
+                    [
+                        "id",
+                        0.2676
+                    ],
+                    [
+                        "json",
+                        0.2623
+                    ],
+                    [
+                        "struct",
+                        0.2522
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 8,
+                "cognitive_complexity": 0,
+                "nloc": 32,
+                "maintainability_index": 43.23
+            },
+            "community_id": 31,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_user.searchContactsInput",
+            "name": "searchContactsInput",
+            "type": "struct",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 30.07,
+                "tfidf_keywords": [
+                    [
+                        "query",
+                        0.5004
+                    ],
+                    [
+                        "limit",
+                        0.4353
+                    ],
+                    [
+                        "json",
+                        0.3813
+                    ],
+                    [
+                        "omitempty",
+                        0.3794
+                    ],
+                    [
+                        "contacts",
+                        0.2912
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 11,
+                "cognitive_complexity": 0,
+                "nloc": 40,
+                "maintainability_index": 39.98
+            },
+            "community_id": 32,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_user.RegisterUserTools",
+            "name": "RegisterUserTools",
+            "type": "function",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.010289,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 24.54,
+                "tfidf_keywords": [
+                    [
+                        "mcp",
+                        0.5904
+                    ],
+                    [
+                        "annotation",
+                        0.3297
+                    ],
+                    [
+                        "hint",
+                        0.3297
+                    ],
+                    [
+                        "tool",
+                        0.2358
+                    ],
+                    [
+                        "description",
+                        0.2273
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 7,
+                "nloc": 49,
+                "maintainability_index": 39.85
+            },
+            "community_id": 0,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_user.handleGetMe",
+            "name": "handleGetMe",
+            "type": "function",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 2,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 24.38,
+                "tfidf_keywords": [
+                    [
+                        "full",
+                        0.5248
+                    ],
+                    [
+                        "fprintf",
+                        0.3273
+                    ],
+                    [
+                        "user",
+                        0.309
+                    ],
+                    [
+                        "result",
+                        0.2971
+                    ],
+                    [
+                        "fmt",
+                        0.2502
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 22,
+                "nloc": 0,
+                "maintainability_index": 67.33
+            },
+            "community_id": 3,
+            "depends_on": [
+                "services.telegram.Self",
+                "services.telegram.API"
+            ]
+        },
+        {
+            "id": "tools.telegram_user.handleResolveUsername",
+            "name": "handleResolveUsername",
+            "type": "function",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 3,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 21.45,
+                "tfidf_keywords": [
+                    [
+                        "username",
+                        0.4545
+                    ],
+                    [
+                        "resolved",
+                        0.3994
+                    ],
+                    [
+                        "user",
+                        0.2809
+                    ],
+                    [
+                        "peer",
+                        0.2765
+                    ],
+                    [
+                        "show",
+                        0.2396
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 23,
+                "nloc": 0,
+                "maintainability_index": 77.73
+            },
+            "community_id": 28,
+            "depends_on": [
+                "tools.telegram_user.formatChat",
+                "services.telegram.API",
+                "tools.telegram_user.formatUser"
+            ]
+        },
+        {
+            "id": "tools.telegram_user.handleGetUser",
+            "name": "handleGetUser",
+            "type": "function",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 4,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 20.48,
+                "tfidf_keywords": [
+                    [
+                        "user",
+                        0.5564
+                    ],
+                    [
+                        "full",
+                        0.5003
+                    ],
+                    [
+                        "result",
+                        0.2833
+                    ],
+                    [
+                        "tool",
+                        0.1855
+                    ],
+                    [
+                        "mcp",
+                        0.1798
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 20,
+                "nloc": 0,
+                "maintainability_index": 74.53
+            },
+            "community_id": 28,
+            "depends_on": [
+                "services.telegram.API",
+                "tools.telegram_user.toInputUser",
+                "services.telegram.ResolvePeer",
+                "tools.telegram_user.formatUser"
+            ]
+        },
+        {
+            "id": "tools.telegram_user.handleSearchContacts",
+            "name": "handleSearchContacts",
+            "type": "function",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 3,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 34.96,
+                "tfidf_keywords": [
+                    [
+                        "found",
+                        0.5853
+                    ],
+                    [
+                        "search",
+                        0.2925
+                    ],
+                    [
+                        "limit",
+                        0.2625
+                    ],
+                    [
+                        "users",
+                        0.2437
+                    ],
+                    [
+                        "chats",
+                        0.2367
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 36,
+                "nloc": 0,
+                "maintainability_index": 64.92
+            },
+            "community_id": 28,
+            "depends_on": [
+                "tools.telegram_user.formatChat",
+                "services.telegram.API",
+                "tools.telegram_user.formatUser"
+            ]
+        },
+        {
+            "id": "tools.telegram_user.toInputUser",
+            "name": "toInputUser",
+            "type": "function",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.01246,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 13.18,
+                "tfidf_keywords": [
+                    [
+                        "user",
+                        0.6688
+                    ],
+                    [
+                        "input",
+                        0.3733
+                    ],
+                    [
+                        "tg",
+                        0.3554
+                    ],
+                    [
+                        "access",
+                        0.3136
+                    ],
+                    [
+                        "hash",
+                        0.2926
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 2,
+                "cognitive_complexity": 1,
+                "nloc": 7,
+                "maintainability_index": 63.51
+            },
+            "community_id": 28,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_user.formatUser",
+            "name": "formatUser",
+            "type": "function",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.020468,
+                "fan_in": 4,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": true,
+                "complexity_score": 26.28,
+                "tfidf_keywords": [
+                    [
+                        "user",
+                        0.7523
+                    ],
+                    [
+                        "fprintf",
+                        0.3575
+                    ],
+                    [
+                        "phone",
+                        0.2652
+                    ],
+                    [
+                        "name",
+                        0.2355
+                    ],
+                    [
+                        "fmt",
+                        0.2343
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 5,
+                "cognitive_complexity": 10,
+                "nloc": 16,
+                "maintainability_index": 52.85
+            },
+            "community_id": 28,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_user.formatChat",
+            "name": "formatChat",
+            "type": "function",
+            "file_path": "tools/telegram_user.go",
+            "metrics": {
+                "pagerank": 0.018284,
+                "fan_in": 3,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": true,
+                "complexity_score": 42.76,
+                "tfidf_keywords": [
+                    [
+                        "participants",
+                        0.3709
+                    ],
+                    [
+                        "chat",
+                        0.3646
+                    ],
+                    [
+                        "channel",
+                        0.3359
+                    ],
+                    [
+                        "fprintf",
+                        0.3359
+                    ],
+                    [
+                        "count",
+                        0.3271
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 7,
+                "cognitive_complexity": 29,
+                "nloc": 20,
+                "maintainability_index": 49.5
+            },
+            "community_id": 28,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.randomID",
+            "name": "randomID",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.015954,
+                "fan_in": 3,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": true,
+                "complexity_score": 9.8,
+                "tfidf_keywords": [
+                    [
+                        "int64",
+                        0.4696
+                    ],
+                    [
+                        "binary",
+                        0.3323
+                    ],
+                    [
+                        "little",
+                        0.3323
+                    ],
+                    [
+                        "endian",
+                        0.3323
+                    ],
+                    [
+                        "uint64",
+                        0.3323
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 0,
+                "nloc": 5,
+                "maintainability_index": 68.22
+            },
+            "community_id": 20,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.formatMessages",
+            "name": "formatMessages",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.013771,
+                "fan_in": 2,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 42.44,
+                "tfidf_keywords": [
+                    [
+                        "sender",
+                        0.5529
+                    ],
+                    [
+                        "msg",
+                        0.4523
+                    ],
+                    [
+                        "sb",
+                        0.3317
+                    ],
+                    [
+                        "msgs",
+                        0.2674
+                    ],
+                    [
+                        "tg",
+                        0.2214
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 8,
+                "cognitive_complexity": 26,
+                "nloc": 24,
+                "maintainability_index": 47.42
+            },
+            "community_id": 34,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.extractMessages",
+            "name": "extractMessages",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.019994,
+                "fan_in": 3,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": true,
+                "complexity_score": 12.56,
+                "tfidf_keywords": [
+                    [
+                        "modified",
+                        0.7033
+                    ],
+                    [
+                        "messages",
+                        0.4956
+                    ],
+                    [
+                        "ok",
+                        0.2942
+                    ],
+                    [
+                        "result",
+                        0.2478
+                    ],
+                    [
+                        "extract",
+                        0.2067
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 2,
+                "cognitive_complexity": 1,
+                "nloc": 7,
+                "maintainability_index": 65.3
+            },
+            "community_id": 34,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.parseMessageIDs",
+            "name": "parseMessageIDs",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.014207,
+                "fan_in": 2,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 28.35,
+                "tfidf_keywords": [
+                    [
+                        "ids",
+                        0.5437
+                    ],
+                    [
+                        "parts",
+                        0.4375
+                    ],
+                    [
+                        "nil",
+                        0.2516
+                    ],
+                    [
+                        "errorf",
+                        0.2449
+                    ],
+                    [
+                        "ds",
+                        0.2104
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 5,
+                "cognitive_complexity": 12,
+                "nloc": 19,
+                "maintainability_index": 50.91
+            },
+            "community_id": 20,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.SendMessageInput",
+            "name": "SendMessageInput",
+            "type": "struct",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 19.45,
+                "tfidf_keywords": [
+                    [
+                        "reply",
+                        0.4684
+                    ],
+                    [
+                        "json",
+                        0.4137
+                    ],
+                    [
+                        "validate",
+                        0.3879
+                    ],
+                    [
+                        "msg",
+                        0.3742
+                    ],
+                    [
+                        "message",
+                        0.3458
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 4,
+                "cognitive_complexity": 0,
+                "nloc": 20,
+                "maintainability_index": 49.5
+            },
+            "community_id": 36,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_message.RegisterMessageTools",
+            "name": "RegisterMessageTools",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010289,
+                "fan_in": 1,
+                "fan_out": 7,
+                "instability": 0.875,
+                "is_hub": true,
+                "complexity_score": 11.67,
+                "tfidf_keywords": [
+                    [
+                        "register",
+                        0.7846
+                    ],
+                    [
+                        "message",
+                        0.4414
+                    ],
+                    [
+                        "server",
+                        0.1961
+                    ],
+                    [
+                        "edit",
+                        0.1412
+                    ],
+                    [
+                        "pin",
+                        0.1412
+                    ]
+                ],
+                "betweenness_centrality": 0.00108,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 0,
+                "nloc": 9,
+                "maintainability_index": 62.85
+            },
+            "community_id": 2,
+            "depends_on": [
+                "tools.telegram_message.registerSearchMessages",
+                "tools.telegram_message.registerSendMessage",
+                "tools.telegram_message.registerDeleteMessage",
+                "tools.telegram_message.registerGetHistory",
+                "tools.telegram_message.registerEditMessage",
+                "tools.telegram_message.registerPinMessage",
+                "tools.telegram_message.registerForwardMessage"
+            ],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_message.registerSendMessage",
+            "name": "registerSendMessage",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.011526,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 13.52,
+                "tfidf_keywords": [
+                    [
+                        "mcp",
+                        0.5481
+                    ],
+                    [
+                        "send",
+                        0.4166
+                    ],
+                    [
+                        "message",
+                        0.3715
+                    ],
+                    [
+                        "description",
+                        0.2973
+                    ],
+                    [
+                        "tool",
+                        0.257
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 1,
+                "nloc": 9,
+                "maintainability_index": 59.52
+            },
+            "community_id": 2,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.handleSendMessage",
+            "name": "handleSendMessage",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 4,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 12.49,
+                "tfidf_keywords": [
+                    [
+                        "reply",
+                        0.3936
+                    ],
+                    [
+                        "message",
+                        0.3487
+                    ],
+                    [
+                        "send",
+                        0.3042
+                    ],
+                    [
+                        "req",
+                        0.253
+                    ],
+                    [
+                        "to",
+                        0.2508
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 7,
+                "nloc": 0,
+                "maintainability_index": 71.48
+            },
+            "community_id": 20,
+            "depends_on": [
+                "services.telegram.Context",
+                "tools.telegram_message.randomID",
+                "services.telegram.API",
+                "services.telegram.ResolvePeer"
+            ]
+        },
+        {
+            "id": "tools.telegram_message.GetHistoryInput",
+            "name": "GetHistoryInput",
+            "type": "struct",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 19.56,
+                "tfidf_keywords": [
+                    [
+                        "json",
+                        0.5311
+                    ],
+                    [
+                        "offset",
+                        0.5179
+                    ],
+                    [
+                        "limit",
+                        0.4043
+                    ],
+                    [
+                        "history",
+                        0.284
+                    ],
+                    [
+                        "validate",
+                        0.249
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 4,
+                "cognitive_complexity": 0,
+                "nloc": 21,
+                "maintainability_index": 49.18
+            },
+            "community_id": 1,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_message.registerGetHistory",
+            "name": "registerGetHistory",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.011526,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 14.14,
+                "tfidf_keywords": [
+                    [
+                        "mcp",
+                        0.5531
+                    ],
+                    [
+                        "history",
+                        0.4522
+                    ],
+                    [
+                        "description",
+                        0.33
+                    ],
+                    [
+                        "tool",
+                        0.2853
+                    ],
+                    [
+                        "number",
+                        0.2775
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 2,
+                "nloc": 9,
+                "maintainability_index": 59.76
+            },
+            "community_id": 2,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.handleGetHistory",
+            "name": "handleGetHistory",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 5,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 12.65,
+                "tfidf_keywords": [
+                    [
+                        "history",
+                        0.4271
+                    ],
+                    [
+                        "limit",
+                        0.3647
+                    ],
+                    [
+                        "result",
+                        0.3072
+                    ],
+                    [
+                        "err",
+                        0.2628
+                    ],
+                    [
+                        "tool",
+                        0.2155
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 7,
+                "nloc": 0,
+                "maintainability_index": 71.02
+            },
+            "community_id": 34,
+            "depends_on": [
+                "services.telegram.API",
+                "services.telegram.ResolvePeer",
+                "services.telegram.Context",
+                "tools.telegram_message.extractMessages",
+                "tools.telegram_message.formatMessages"
+            ]
+        },
+        {
+            "id": "tools.telegram_message.SearchMessagesInput",
+            "name": "SearchMessagesInput",
+            "type": "struct",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 19.78,
+                "tfidf_keywords": [
+                    [
+                        "json",
+                        0.4939
+                    ],
+                    [
+                        "validate",
+                        0.4631
+                    ],
+                    [
+                        "query",
+                        0.4322
+                    ],
+                    [
+                        "limit",
+                        0.3759
+                    ],
+                    [
+                        "required",
+                        0.2545
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 4,
+                "cognitive_complexity": 0,
+                "nloc": 22,
+                "maintainability_index": 48.54
+            },
+            "community_id": 33,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_message.registerSearchMessages",
+            "name": "registerSearchMessages",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.011526,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 13.52,
+                "tfidf_keywords": [
+                    [
+                        "mcp",
+                        0.5913
+                    ],
+                    [
+                        "search",
+                        0.4357
+                    ],
+                    [
+                        "description",
+                        0.3208
+                    ],
+                    [
+                        "tool",
+                        0.2773
+                    ],
+                    [
+                        "messages",
+                        0.2635
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 1,
+                "nloc": 9,
+                "maintainability_index": 59.52
+            },
+            "community_id": 2,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.handleSearchMessages",
+            "name": "handleSearchMessages",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 5,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 12.81,
+                "tfidf_keywords": [
+                    [
+                        "messages",
+                        0.3865
+                    ],
+                    [
+                        "limit",
+                        0.3441
+                    ],
+                    [
+                        "search",
+                        0.3196
+                    ],
+                    [
+                        "result",
+                        0.2899
+                    ],
+                    [
+                        "err",
+                        0.2479
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 7,
+                "nloc": 0,
+                "maintainability_index": 70.58
+            },
+            "community_id": 34,
+            "depends_on": [
+                "services.telegram.API",
+                "services.telegram.ResolvePeer",
+                "services.telegram.Context",
+                "tools.telegram_message.extractMessages",
+                "tools.telegram_message.formatMessages"
+            ]
+        },
+        {
+            "id": "tools.telegram_message.ForwardMessageInput",
+            "name": "ForwardMessageInput",
+            "type": "struct",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 23.35,
+                "tfidf_keywords": [
+                    [
+                        "validate",
+                        0.5708
+                    ],
+                    [
+                        "json",
+                        0.4058
+                    ],
+                    [
+                        "message",
+                        0.3393
+                    ],
+                    [
+                        "peer",
+                        0.3389
+                    ],
+                    [
+                        "required",
+                        0.3137
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 6,
+                "cognitive_complexity": 0,
+                "nloc": 29,
+                "maintainability_index": 44.29
+            },
+            "community_id": 35,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_message.registerForwardMessage",
+            "name": "registerForwardMessage",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.011526,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 14.3,
+                "tfidf_keywords": [
+                    [
+                        "mcp",
+                        0.5787
+                    ],
+                    [
+                        "forward",
+                        0.4929
+                    ],
+                    [
+                        "description",
+                        0.2878
+                    ],
+                    [
+                        "message",
+                        0.2568
+                    ],
+                    [
+                        "tool",
+                        0.2487
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 2,
+                "nloc": 9,
+                "maintainability_index": 59.29
+            },
+            "community_id": 2,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.handleForwardMessage",
+            "name": "handleForwardMessage",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 5,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 17.89,
+                "tfidf_keywords": [
+                    [
+                        "err",
+                        0.3425
+                    ],
+                    [
+                        "random",
+                        0.334
+                    ],
+                    [
+                        "forward",
+                        0.2784
+                    ],
+                    [
+                        "ds",
+                        0.2733
+                    ],
+                    [
+                        "peer",
+                        0.2608
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 13,
+                "nloc": 0,
+                "maintainability_index": 67.96
+            },
+            "community_id": 20,
+            "depends_on": [
+                "tools.telegram_message.randomID",
+                "services.telegram.API",
+                "services.telegram.ResolvePeer",
+                "services.telegram.Context",
+                "tools.telegram_message.parseMessageIDs"
+            ]
+        },
+        {
+            "id": "tools.telegram_message.DeleteMessageInput",
+            "name": "DeleteMessageInput",
+            "type": "struct",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 21.17,
+                "tfidf_keywords": [
+                    [
+                        "revoke",
+                        0.501
+                    ],
+                    [
+                        "json",
+                        0.4425
+                    ],
+                    [
+                        "validate",
+                        0.4149
+                    ],
+                    [
+                        "message",
+                        0.3699
+                    ],
+                    [
+                        "required",
+                        0.228
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 5,
+                "cognitive_complexity": 0,
+                "nloc": 23,
+                "maintainability_index": 47.55
+            },
+            "community_id": 17,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_message.registerDeleteMessage",
+            "name": "registerDeleteMessage",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.011526,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 14.22,
+                "tfidf_keywords": [
+                    [
+                        "delete",
+                        0.5701
+                    ],
+                    [
+                        "mcp",
+                        0.537
+                    ],
+                    [
+                        "description",
+                        0.2913
+                    ],
+                    [
+                        "message",
+                        0.26
+                    ],
+                    [
+                        "tool",
+                        0.2518
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 2,
+                "nloc": 9,
+                "maintainability_index": 59.52
+            },
+            "community_id": 2,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.handleDeleteMessage",
+            "name": "handleDeleteMessage",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 4,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 15.04,
+                "tfidf_keywords": [
+                    [
+                        "revoke",
+                        0.4395
+                    ],
+                    [
+                        "delete",
+                        0.3294
+                    ],
+                    [
+                        "err",
+                        0.3193
+                    ],
+                    [
+                        "nil",
+                        0.2708
+                    ],
+                    [
+                        "ids",
+                        0.2341
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 10,
+                "nloc": 0,
+                "maintainability_index": 70.16
+            },
+            "community_id": 20,
+            "depends_on": [
+                "services.telegram.Context",
+                "tools.telegram_message.parseMessageIDs",
+                "services.telegram.API",
+                "services.telegram.ResolvePeer"
+            ]
+        },
+        {
+            "id": "tools.telegram_message.EditMessageInput",
+            "name": "EditMessageInput",
+            "type": "struct",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 17.64,
+                "tfidf_keywords": [
+                    [
+                        "validate",
+                        0.5628
+                    ],
+                    [
+                        "message",
+                        0.5575
+                    ],
+                    [
+                        "json",
+                        0.4001
+                    ],
+                    [
+                        "required",
+                        0.3093
+                    ],
+                    [
+                        "edit",
+                        0.214
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 3,
+                "cognitive_complexity": 0,
+                "nloc": 17,
+                "maintainability_index": 51.7
+            },
+            "community_id": 18,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_message.registerEditMessage",
+            "name": "registerEditMessage",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.011526,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 13.6,
+                "tfidf_keywords": [
+                    [
+                        "mcp",
+                        0.5734
+                    ],
+                    [
+                        "edit",
+                        0.4884
+                    ],
+                    [
+                        "message",
+                        0.4072
+                    ],
+                    [
+                        "description",
+                        0.2851
+                    ],
+                    [
+                        "tool",
+                        0.2465
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 1,
+                "nloc": 9,
+                "maintainability_index": 59.29
+            },
+            "community_id": 2,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.handleEditMessage",
+            "name": "handleEditMessage",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 3,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 9.87,
+                "tfidf_keywords": [
+                    [
+                        "edit",
+                        0.6079
+                    ],
+                    [
+                        "message",
+                        0.3563
+                    ],
+                    [
+                        "req",
+                        0.2585
+                    ],
+                    [
+                        "err",
+                        0.2337
+                    ],
+                    [
+                        "tool",
+                        0.1917
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 4,
+                "nloc": 0,
+                "maintainability_index": 73.02
+            },
+            "community_id": 13,
+            "depends_on": [
+                "services.telegram.Context",
+                "services.telegram.API",
+                "services.telegram.ResolvePeer"
+            ]
+        },
+        {
+            "id": "tools.telegram_message.PinMessageInput",
+            "name": "PinMessageInput",
+            "type": "struct",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 17.39,
+                "tfidf_keywords": [
+                    [
+                        "silent",
+                        0.5139
+                    ],
+                    [
+                        "json",
+                        0.4539
+                    ],
+                    [
+                        "validate",
+                        0.4256
+                    ],
+                    [
+                        "message",
+                        0.3794
+                    ],
+                    [
+                        "pin",
+                        0.2427
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 3,
+                "cognitive_complexity": 0,
+                "nloc": 16,
+                "maintainability_index": 52.41
+            },
+            "community_id": 19,
+            "depends_on": [],
+            "analysis": {
+                "implements_interfaces": [],
+                "spawns_goroutines": false,
+                "uses_channels": false,
+                "uses_select": false,
+                "returns_error": false,
+                "has_defers": false,
+                "has_panic": false,
+                "is_exported": true
+            }
+        },
+        {
+            "id": "tools.telegram_message.registerPinMessage",
+            "name": "registerPinMessage",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.011526,
+                "fan_in": 1,
+                "fan_out": 0,
+                "instability": 0.0,
+                "is_hub": false,
+                "complexity_score": 13.52,
+                "tfidf_keywords": [
+                    [
+                        "pin",
+                        0.5779
+                    ],
+                    [
+                        "mcp",
+                        0.5183
+                    ],
+                    [
+                        "message",
+                        0.3011
+                    ],
+                    [
+                        "description",
+                        0.2811
+                    ],
+                    [
+                        "tool",
+                        0.243
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 1,
+                "cognitive_complexity": 1,
+                "nloc": 9,
+                "maintainability_index": 59.52
+            },
+            "community_id": 2,
+            "depends_on": []
+        },
+        {
+            "id": "tools.telegram_message.handlePinMessage",
+            "name": "handlePinMessage",
+            "type": "function",
+            "file_path": "tools/telegram_message.go",
+            "metrics": {
+                "pagerank": 0.010277,
+                "fan_in": 0,
+                "fan_out": 3,
+                "instability": 1.0,
+                "is_hub": false,
+                "complexity_score": 9.67,
+                "tfidf_keywords": [
+                    [
+                        "pinned",
+                        0.3385
+                    ],
+                    [
+                        "message",
+                        0.3317
+                    ],
+                    [
+                        "err",
+                        0.2798
+                    ],
+                    [
+                        "pin",
+                        0.2729
+                    ],
+                    [
+                        "tool",
+                        0.2295
+                    ]
+                ],
+                "betweenness_centrality": 0.0,
+                "cyclomatic_complexity": 0,
+                "cognitive_complexity": 4,
+                "nloc": 0,
+                "maintainability_index": 73.6
+            },
+            "community_id": 13,
+            "depends_on": [
+                "services.telegram.Context",
+                "services.telegram.API",
+                "services.telegram.ResolvePeer"
+            ]
+        }
+    ],
+    "edges": [
+        {
+            "source": "main.main",
+            "target": "tools.telegram_user.RegisterUserTools",
+            "type": "depends_on"
+        },
+        {
+            "source": "main.main",
+            "target": "tools.telegram_media.RegisterMediaTools",
+            "type": "depends_on"
+        },
+        {
+            "source": "main.main",
+            "target": "main.isContextCanceled",
+            "type": "depends_on"
+        },
+        {
+            "source": "main.main",
+            "target": "services.telegram.ReadyCh",
+            "type": "depends_on"
+        },
+        {
+            "source": "main.main",
+            "target": "tools.telegram_message.RegisterMessageTools",
+            "type": "depends_on"
+        },
+        {
+            "source": "main.main",
+            "target": "services.telegram.StartTelegram",
+            "type": "depends_on"
+        },
+        {
+            "source": "main.main",
+            "target": "tools.telegram_chat.RegisterChatTools",
+            "type": "depends_on"
+        },
+        {
+            "source": "services.telegram.StartTelegram",
+            "target": "services.telegram.Self",
+            "type": "depends_on"
+        },
+        {
+            "source": "services.telegram.StartTelegram",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "services.telegram.ResolvePeer",
+            "target": "services.telegram.GetInputPeerByID",
+            "type": "depends_on"
+        },
+        {
+            "source": "services.telegram.ResolvePeer",
+            "target": "services.telegram.ResolveUsername",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.RegisterMediaTools",
+            "target": "tools.telegram_media.registerGetFileInfo",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.RegisterMediaTools",
+            "target": "tools.telegram_media.registerSendMedia",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.RegisterMediaTools",
+            "target": "tools.telegram_media.registerDownloadMedia",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.getMessageByID",
+            "target": "tools.telegram_message.extractMessages",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.getMessageByID",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleDownloadMedia",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleDownloadMedia",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleDownloadMedia",
+            "target": "tools.telegram_media.getMessageByID",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleDownloadMedia",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleSendMedia",
+            "target": "tools.telegram_message.randomID",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleSendMedia",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleSendMedia",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleSendMedia",
+            "target": "tools.telegram_media.mimeFromPath",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleSendMedia",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleGetFileInfo",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleGetFileInfo",
+            "target": "tools.telegram_media.formatSize",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleGetFileInfo",
+            "target": "tools.telegram_media.getMessageByID",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_media.handleGetFileInfo",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleListChats",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleListChats",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleGetChat",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleGetChat",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleGetChat",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleSearchChats",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleSearchChats",
+            "target": "tools.telegram_user.formatUser",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleSearchChats",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleSearchChats",
+            "target": "tools.telegram_user.formatChat",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleJoinChat",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleJoinChat",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleJoinChat",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleLeaveChat",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleLeaveChat",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleLeaveChat",
+            "target": "services.telegram.Self",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleLeaveChat",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleCreateGroup",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleCreateGroup",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_chat.handleCreateGroup",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleGetMe",
+            "target": "services.telegram.Self",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleGetMe",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleResolveUsername",
+            "target": "tools.telegram_user.formatChat",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleResolveUsername",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleResolveUsername",
+            "target": "tools.telegram_user.formatUser",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleGetUser",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleGetUser",
+            "target": "tools.telegram_user.toInputUser",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleGetUser",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleGetUser",
+            "target": "tools.telegram_user.formatUser",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleSearchContacts",
+            "target": "tools.telegram_user.formatChat",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleSearchContacts",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_user.handleSearchContacts",
+            "target": "tools.telegram_user.formatUser",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.RegisterMessageTools",
+            "target": "tools.telegram_message.registerSearchMessages",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.RegisterMessageTools",
+            "target": "tools.telegram_message.registerSendMessage",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.RegisterMessageTools",
+            "target": "tools.telegram_message.registerDeleteMessage",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.RegisterMessageTools",
+            "target": "tools.telegram_message.registerGetHistory",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.RegisterMessageTools",
+            "target": "tools.telegram_message.registerEditMessage",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.RegisterMessageTools",
+            "target": "tools.telegram_message.registerPinMessage",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.RegisterMessageTools",
+            "target": "tools.telegram_message.registerForwardMessage",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleSendMessage",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleSendMessage",
+            "target": "tools.telegram_message.randomID",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleSendMessage",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleSendMessage",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleGetHistory",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleGetHistory",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleGetHistory",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleGetHistory",
+            "target": "tools.telegram_message.extractMessages",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleGetHistory",
+            "target": "tools.telegram_message.formatMessages",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleSearchMessages",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleSearchMessages",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleSearchMessages",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleSearchMessages",
+            "target": "tools.telegram_message.extractMessages",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleSearchMessages",
+            "target": "tools.telegram_message.formatMessages",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleForwardMessage",
+            "target": "tools.telegram_message.randomID",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleForwardMessage",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleForwardMessage",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleForwardMessage",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleForwardMessage",
+            "target": "tools.telegram_message.parseMessageIDs",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleDeleteMessage",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleDeleteMessage",
+            "target": "tools.telegram_message.parseMessageIDs",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleDeleteMessage",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleDeleteMessage",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleEditMessage",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleEditMessage",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handleEditMessage",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handlePinMessage",
+            "target": "services.telegram.Context",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handlePinMessage",
+            "target": "services.telegram.API",
+            "type": "depends_on"
+        },
+        {
+            "source": "tools.telegram_message.handlePinMessage",
+            "target": "services.telegram.ResolvePeer",
+            "type": "depends_on"
+        }
+    ],
+    "communities": [
+        {
+            "id": 0,
+            "node_count": 9,
+            "hub_count": 1,
+            "tfidf_keywords": [
+                [
+                    "mcp",
+                    2.8973
+                ],
+                [
+                    "description",
+                    1.3292
+                ],
+                [
+                    "media",
+                    1.3137
+                ],
+                [
+                    "tool",
+                    1.2473
+                ],
+                [
+                    "server",
+                    0.7425
+                ],
+                [
+                    "download",
+                    0.7108
+                ],
+                [
+                    "ready",
+                    0.7035
+                ],
+                [
+                    "err",
+                    0.6914
+                ],
+                [
+                    "register",
+                    0.6331
+                ],
+                [
+                    "canceled",
+                    0.59
+                ]
+            ]
+        },
+        {
+            "id": 1,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "json",
+                    0.5311
+                ],
+                [
+                    "offset",
+                    0.5179
+                ],
+                [
+                    "limit",
+                    0.4043
+                ],
+                [
+                    "history",
+                    0.284
+                ],
+                [
+                    "validate",
+                    0.249
+                ]
+            ]
+        },
+        {
+            "id": 2,
+            "node_count": 8,
+            "hub_count": 1,
+            "tfidf_keywords": [
+                [
+                    "mcp",
+                    3.8999
+                ],
+                [
+                    "description",
+                    2.0934
+                ],
+                [
+                    "message",
+                    2.038
+                ],
+                [
+                    "tool",
+                    1.8096
+                ],
+                [
+                    "register",
+                    0.7846
+                ],
+                [
+                    "pin",
+                    0.7191
+                ],
+                [
+                    "edit",
+                    0.6296
+                ],
+                [
+                    "delete",
+                    0.5701
+                ],
+                [
+                    "forward",
+                    0.4929
+                ],
+                [
+                    "history",
+                    0.4522
+                ]
+            ]
+        },
+        {
+            "id": 3,
+            "node_count": 5,
+            "hub_count": 2,
+            "tfidf_keywords": [
+                [
+                    "user",
+                    1.0775
+                ],
+                [
+                    "ready",
+                    1.0401
+                ],
+                [
+                    "tg",
+                    0.8587
+                ],
+                [
+                    "client",
+                    0.6493
+                ],
+                [
+                    "err",
+                    0.5553
+                ],
+                [
+                    "full",
+                    0.5248
+                ],
+                [
+                    "session",
+                    0.4857
+                ],
+                [
+                    "func",
+                    0.4171
+                ],
+                [
+                    "telegram",
+                    0.4163
+                ],
+                [
+                    "leave",
+                    0.3959
+                ]
+            ]
+        },
+        {
+            "id": 4,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "storage",
+                    0.7309
+                ],
+                [
+                    "peer",
+                    0.428
+                ],
+                [
+                    "pebble",
+                    0.4145
+                ],
+                [
+                    "ready",
+                    0.3091
+                ],
+                [
+                    "func",
+                    0.1239
+                ]
+            ]
+        },
+        {
+            "id": 5,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "resolver",
+                    0.869
+                ],
+                [
+                    "cache",
+                    0.3103
+                ],
+                [
+                    "storage",
+                    0.2736
+                ],
+                [
+                    "ready",
+                    0.2314
+                ],
+                [
+                    "peer",
+                    0.1068
+                ]
+            ]
+        },
+        {
+            "id": 6,
+            "node_count": 5,
+            "hub_count": 1,
+            "tfidf_keywords": [
+                [
+                    "context",
+                    0.7633
+                ],
+                [
+                    "user",
+                    0.7023
+                ],
+                [
+                    "channel",
+                    0.6317
+                ],
+                [
+                    "full",
+                    0.6084
+                ],
+                [
+                    "chat",
+                    0.5769
+                ],
+                [
+                    "part",
+                    0.4527
+                ],
+                [
+                    "ready",
+                    0.4331
+                ],
+                [
+                    "map",
+                    0.3756
+                ],
+                [
+                    "telegram",
+                    0.3476
+                ],
+                [
+                    "ok",
+                    0.3447
+                ]
+            ]
+        },
+        {
+            "id": 7,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "phone",
+                    0.5687
+                ],
+                [
+                    "terminal",
+                    0.5236
+                ],
+                [
+                    "auth",
+                    0.5236
+                ],
+                [
+                    "struct",
+                    0.358
+                ]
+            ]
+        },
+        {
+            "id": 8,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "phone",
+                    0.8015
+                ],
+                [
+                    "err",
+                    0.2158
+                ],
+                [
+                    "nil",
+                    0.2059
+                ],
+                [
+                    "international",
+                    0.174
+                ],
+                [
+                    "bufio",
+                    0.1591
+                ]
+            ]
+        },
+        {
+            "id": 9,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "code",
+                    0.7964
+                ],
+                [
+                    "auth",
+                    0.2462
+                ],
+                [
+                    "err",
+                    0.216
+                ],
+                [
+                    "reader",
+                    0.1593
+                ],
+                [
+                    "bufio",
+                    0.1593
+                ]
+            ]
+        },
+        {
+            "id": 10,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "password",
+                    0.576
+                ],
+                [
+                    "pwd",
+                    0.384
+                ],
+                [
+                    "byte",
+                    0.351
+                ],
+                [
+                    "err",
+                    0.2381
+                ],
+                [
+                    "syscall",
+                    0.192
+                ]
+            ]
+        },
+        {
+            "id": 11,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "auth",
+                    0.5376
+                ],
+                [
+                    "up",
+                    0.4636
+                ],
+                [
+                    "info",
+                    0.3344
+                ],
+                [
+                    "user",
+                    0.2548
+                ],
+                [
+                    "supported",
+                    0.2536
+                ]
+            ]
+        },
+        {
+            "id": 12,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "service",
+                    0.522
+                ],
+                [
+                    "terms",
+                    0.522
+                ],
+                [
+                    "tos",
+                    0.348
+                ],
+                [
+                    "of",
+                    0.3337
+                ],
+                [
+                    "auth",
+                    0.2459
+                ]
+            ]
+        },
+        {
+            "id": 13,
+            "node_count": 5,
+            "hub_count": 3,
+            "tfidf_keywords": [
+                [
+                    "username",
+                    0.8068
+                ],
+                [
+                    "err",
+                    0.7949
+                ],
+                [
+                    "identifier",
+                    0.7762
+                ],
+                [
+                    "message",
+                    0.688
+                ],
+                [
+                    "edit",
+                    0.6079
+                ],
+                [
+                    "resolve",
+                    0.5981
+                ],
+                [
+                    "nil",
+                    0.5334
+                ],
+                [
+                    "peer",
+                    0.4228
+                ],
+                [
+                    "tool",
+                    0.4212
+                ],
+                [
+                    "chat",
+                    0.4024
+                ]
+            ]
+        },
+        {
+            "id": 14,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "download",
+                    0.6247
+                ],
+                [
+                    "dir",
+                    0.4165
+                ],
+                [
+                    "json",
+                    0.3894
+                ],
+                [
+                    "jsonschema",
+                    0.3208
+                ],
+                [
+                    "message",
+                    0.217
+                ]
+            ]
+        },
+        {
+            "id": 15,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "caption",
+                    0.4836
+                ],
+                [
+                    "json",
+                    0.4271
+                ],
+                [
+                    "path",
+                    0.4005
+                ],
+                [
+                    "file",
+                    0.3518
+                ],
+                [
+                    "jsonschema",
+                    0.3518
+                ]
+            ]
+        },
+        {
+            "id": 16,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "jsonschema",
+                    0.5207
+                ],
+                [
+                    "json",
+                    0.4214
+                ],
+                [
+                    "message",
+                    0.3523
+                ],
+                [
+                    "required",
+                    0.3257
+                ],
+                [
+                    "info",
+                    0.2765
+                ]
+            ]
+        },
+        {
+            "id": 17,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "revoke",
+                    0.501
+                ],
+                [
+                    "json",
+                    0.4425
+                ],
+                [
+                    "validate",
+                    0.4149
+                ],
+                [
+                    "message",
+                    0.3699
+                ],
+                [
+                    "required",
+                    0.228
+                ]
+            ]
+        },
+        {
+            "id": 18,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "validate",
+                    0.5628
+                ],
+                [
+                    "message",
+                    0.5575
+                ],
+                [
+                    "json",
+                    0.4001
+                ],
+                [
+                    "required",
+                    0.3093
+                ],
+                [
+                    "edit",
+                    0.214
+                ]
+            ]
+        },
+        {
+            "id": 19,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "silent",
+                    0.5139
+                ],
+                [
+                    "json",
+                    0.4539
+                ],
+                [
+                    "validate",
+                    0.4256
+                ],
+                [
+                    "message",
+                    0.3794
+                ],
+                [
+                    "pin",
+                    0.2427
+                ]
+            ]
+        },
+        {
+            "id": 20,
+            "node_count": 7,
+            "hub_count": 1,
+            "tfidf_keywords": [
+                [
+                    "err",
+                    0.9675
+                ],
+                [
+                    "ids",
+                    0.7778
+                ],
+                [
+                    "nil",
+                    0.7412
+                ],
+                [
+                    "path",
+                    0.5307
+                ],
+                [
+                    "ds",
+                    0.4837
+                ],
+                [
+                    "int64",
+                    0.4696
+                ],
+                [
+                    "revoke",
+                    0.4395
+                ],
+                [
+                    "parts",
+                    0.4375
+                ],
+                [
+                    "reply",
+                    0.3936
+                ],
+                [
+                    "image",
+                    0.3895
+                ]
+            ]
+        },
+        {
+            "id": 21,
+            "node_count": 4,
+            "hub_count": 1,
+            "tfidf_keywords": [
+                [
+                    "photo",
+                    0.8309
+                ],
+                [
+                    "bytes",
+                    0.8013
+                ],
+                [
+                    "size",
+                    0.4379
+                ],
+                [
+                    "fprintf",
+                    0.3759
+                ],
+                [
+                    "msg",
+                    0.3712
+                ],
+                [
+                    "strconv",
+                    0.3533
+                ],
+                [
+                    "document",
+                    0.3444
+                ],
+                [
+                    "message",
+                    0.3431
+                ],
+                [
+                    "download",
+                    0.3327
+                ],
+                [
+                    "format",
+                    0.3308
+                ]
+            ]
+        },
+        {
+            "id": 22,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "offset",
+                    0.6278
+                ],
+                [
+                    "limit",
+                    0.49
+                ],
+                [
+                    "json",
+                    0.4292
+                ],
+                [
+                    "chats",
+                    0.2652
+                ],
+                [
+                    "id",
+                    0.219
+                ]
+            ]
+        },
+        {
+            "id": 23,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "peer",
+                    0.478
+                ],
+                [
+                    "jsonschema",
+                    0.4716
+                ],
+                [
+                    "json",
+                    0.3816
+                ],
+                [
+                    "struct",
+                    0.367
+                ],
+                [
+                    "chat",
+                    0.3412
+                ]
+            ]
+        },
+        {
+            "id": 24,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "query",
+                    0.5504
+                ],
+                [
+                    "limit",
+                    0.4788
+                ],
+                [
+                    "json",
+                    0.4193
+                ],
+                [
+                    "search",
+                    0.2668
+                ],
+                [
+                    "chats",
+                    0.2591
+                ]
+            ]
+        },
+        {
+            "id": 25,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "join",
+                    0.5036
+                ],
+                [
+                    "peer",
+                    0.413
+                ],
+                [
+                    "jsonschema",
+                    0.4074
+                ],
+                [
+                    "json",
+                    0.3297
+                ],
+                [
+                    "struct",
+                    0.3171
+                ]
+            ]
+        },
+        {
+            "id": 26,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "leave",
+                    0.5439
+                ],
+                [
+                    "peer",
+                    0.4011
+                ],
+                [
+                    "jsonschema",
+                    0.3957
+                ],
+                [
+                    "json",
+                    0.3202
+                ],
+                [
+                    "struct",
+                    0.308
+                ]
+            ]
+        },
+        {
+            "id": 27,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "title",
+                    0.4917
+                ],
+                [
+                    "users",
+                    0.4448
+                ],
+                [
+                    "jsonschema",
+                    0.432
+                ],
+                [
+                    "json",
+                    0.3496
+                ],
+                [
+                    "required",
+                    0.2702
+                ]
+            ]
+        },
+        {
+            "id": 28,
+            "node_count": 7,
+            "hub_count": 2,
+            "tfidf_keywords": [
+                [
+                    "user",
+                    2.2584
+                ],
+                [
+                    "found",
+                    1.1819
+                ],
+                [
+                    "fprintf",
+                    0.6934
+                ],
+                [
+                    "search",
+                    0.5906
+                ],
+                [
+                    "chats",
+                    0.5745
+                ],
+                [
+                    "limit",
+                    0.53
+                ],
+                [
+                    "full",
+                    0.5003
+                ],
+                [
+                    "users",
+                    0.4922
+                ],
+                [
+                    "username",
+                    0.4545
+                ],
+                [
+                    "resolved",
+                    0.3994
+                ]
+            ]
+        },
+        {
+            "id": 29,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "me",
+                    0.7934
+                ],
+                [
+                    "struct",
+                    0.4995
+                ],
+                [
+                    "input",
+                    0.3479
+                ]
+            ]
+        },
+        {
+            "id": 30,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "username",
+                    0.7702
+                ],
+                [
+                    "jsonschema",
+                    0.3361
+                ],
+                [
+                    "resolve",
+                    0.272
+                ],
+                [
+                    "json",
+                    0.272
+                ],
+                [
+                    "struct",
+                    0.2616
+                ]
+            ]
+        },
+        {
+            "id": 31,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "user",
+                    0.7868
+                ],
+                [
+                    "jsonschema",
+                    0.3241
+                ],
+                [
+                    "id",
+                    0.2676
+                ],
+                [
+                    "json",
+                    0.2623
+                ],
+                [
+                    "struct",
+                    0.2522
+                ]
+            ]
+        },
+        {
+            "id": 32,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "query",
+                    0.5004
+                ],
+                [
+                    "limit",
+                    0.4353
+                ],
+                [
+                    "json",
+                    0.3813
+                ],
+                [
+                    "omitempty",
+                    0.3794
+                ],
+                [
+                    "contacts",
+                    0.2912
+                ]
+            ]
+        },
+        {
+            "id": 33,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "json",
+                    0.4939
+                ],
+                [
+                    "validate",
+                    0.4631
+                ],
+                [
+                    "query",
+                    0.4322
+                ],
+                [
+                    "limit",
+                    0.3759
+                ],
+                [
+                    "required",
+                    0.2545
+                ]
+            ]
+        },
+        {
+            "id": 34,
+            "node_count": 4,
+            "hub_count": 1,
+            "tfidf_keywords": [
+                [
+                    "messages",
+                    0.8821
+                ],
+                [
+                    "result",
+                    0.8449
+                ],
+                [
+                    "limit",
+                    0.7088
+                ],
+                [
+                    "modified",
+                    0.7033
+                ],
+                [
+                    "sender",
+                    0.5529
+                ],
+                [
+                    "err",
+                    0.5107
+                ],
+                [
+                    "msg",
+                    0.4523
+                ],
+                [
+                    "history",
+                    0.4271
+                ],
+                [
+                    "sb",
+                    0.3317
+                ],
+                [
+                    "search",
+                    0.3196
+                ]
+            ]
+        },
+        {
+            "id": 35,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "validate",
+                    0.5708
+                ],
+                [
+                    "json",
+                    0.4058
+                ],
+                [
+                    "message",
+                    0.3393
+                ],
+                [
+                    "peer",
+                    0.3389
+                ],
+                [
+                    "required",
+                    0.3137
+                ]
+            ]
+        },
+        {
+            "id": 36,
+            "node_count": 1,
+            "hub_count": 0,
+            "tfidf_keywords": [
+                [
+                    "reply",
+                    0.4684
+                ],
+                [
+                    "json",
+                    0.4137
+                ],
+                [
+                    "validate",
+                    0.3879
+                ],
+                [
+                    "msg",
+                    0.3742
+                ],
+                [
+                    "message",
+                    0.3458
+                ]
+            ]
+        }
+    ],
+    "temporal_coupling": [],
+    "architectural_violations": [
+        {
+            "rule": "no-unstable-hubs",
+            "severity": "medium",
+            "message": "RegisterMessageTools: hub with instability=0.88 \u2014 changes here cascade widely",
+            "components": [
+                "tools.telegram_message.RegisterMessageTools"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "main: cognitive_complexity=46 (threshold: 15)",
+            "components": [
+                "main.main"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "StartTelegram: cognitive_complexity=18 (threshold: 15)",
+            "components": [
+                "services.telegram.StartTelegram"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "mimeFromPath: cognitive_complexity=33 (threshold: 15)",
+            "components": [
+                "tools.telegram_media.mimeFromPath"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "handleDownloadMedia: cognitive_complexity=63 (threshold: 15)",
+            "components": [
+                "tools.telegram_media.handleDownloadMedia"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "handleGetFileInfo: cognitive_complexity=102 (threshold: 15)",
+            "components": [
+                "tools.telegram_media.handleGetFileInfo"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "handleListChats: cognitive_complexity=128 (threshold: 15)",
+            "components": [
+                "tools.telegram_chat.handleListChats"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "handleGetChat: cognitive_complexity=112 (threshold: 15)",
+            "components": [
+                "tools.telegram_chat.handleGetChat"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "handleSearchChats: cognitive_complexity=31 (threshold: 15)",
+            "components": [
+                "tools.telegram_chat.handleSearchChats"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "handleJoinChat: cognitive_complexity=25 (threshold: 15)",
+            "components": [
+                "tools.telegram_chat.handleJoinChat"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "handleCreateGroup: cognitive_complexity=20 (threshold: 15)",
+            "components": [
+                "tools.telegram_chat.handleCreateGroup"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "handleGetMe: cognitive_complexity=22 (threshold: 15)",
+            "components": [
+                "tools.telegram_user.handleGetMe"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "handleResolveUsername: cognitive_complexity=23 (threshold: 15)",
+            "components": [
+                "tools.telegram_user.handleResolveUsername"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "handleGetUser: cognitive_complexity=20 (threshold: 15)",
+            "components": [
+                "tools.telegram_user.handleGetUser"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "handleSearchContacts: cognitive_complexity=36 (threshold: 15)",
+            "components": [
+                "tools.telegram_user.handleSearchContacts"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "formatChat: cognitive_complexity=29 (threshold: 15)",
+            "components": [
+                "tools.telegram_user.formatChat"
+            ]
+        },
+        {
+            "rule": "high-cognitive-complexity",
+            "severity": "medium",
+            "message": "formatMessages: cognitive_complexity=26 (threshold: 15)",
+            "components": [
+                "tools.telegram_message.formatMessages"
+            ]
+        },
+        {
+            "rule": "bottleneck-component",
+            "severity": "low",
+            "message": "ResolvePeer: betweenness=0.0046, fan-in=15 \u2014 sits on many dependency paths",
+            "components": [
+                "services.telegram.ResolvePeer"
+            ]
+        }
+    ],
+    "summary_metrics": {
+        "total_nodes": 82,
+        "total_edges": 96,
+        "hub_files": [
+            "API",
+            "Self",
+            "Context",
+            "GetInputPeerByID",
+            "ResolveUsername",
+            "ResolvePeer",
+            "RegisterMediaTools",
+            "getMessageByID",
+            "formatUser",
+            "formatChat",
+            "randomID",
+            "extractMessages",
+            "RegisterMessageTools"
+        ],
+        "most_unstable": [
+            "main",
+            "handleDownloadMedia",
+            "handleSendMedia",
+            "handleGetFileInfo",
+            "handleListChats"
+        ],
+        "most_stable": [
+            "registerDeleteMessage",
+            "EditMessageInput",
+            "registerEditMessage",
+            "PinMessageInput",
+            "registerPinMessage"
+        ],
+        "circular_dependencies": [],
+        "avg_maintainability": 60.5,
+        "high_cognitive_complexity": [
+            "main",
+            "StartTelegram",
+            "mimeFromPath",
+            "handleDownloadMedia",
+            "handleGetFileInfo",
+            "handleListChats",
+            "handleGetChat",
+            "handleSearchChats",
+            "handleJoinChat",
+            "handleCreateGroup"
+        ],
+        "bottleneck_components": [],
+        "interface_implementations": 0,
+        "concurrent_components": 1,
+        "error_returning_functions": 2,
+        "exported_symbols": 26
+    }
+}
